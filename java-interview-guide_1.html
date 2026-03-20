@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Java Interview Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Unbounded:wght@400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0e17;--s:#111827;--s2:#1a2235;--s3:#0d1320;--a:#f59e0b;--a2:#06b6d4;--a3:#a855f7;--a4:#22c55e;--a5:#ef4444;--t:#f1f5f9;--tm:#64748b;--b:rgba(255,255,255,0.07)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--t);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(245,158,11,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(245,158,11,.025) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+nav{position:sticky;top:0;z-index:100;background:rgba(10,14,23,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--b);padding:0 24px}
+.ni{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:22px;height:54px;overflow-x:auto;scrollbar-width:none}
+.nl{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:900;color:var(--a);white-space:nowrap}
+.na{font-size:12px;color:var(--tm);text-decoration:none;white-space:nowrap;transition:color .15s}.na:hover{color:var(--t)}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+header{padding:72px 0 48px;text-align:center}
+.hb{display:inline-flex;align-items:center;gap:8px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);border-radius:100px;padding:6px 16px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--a);margin-bottom:24px;letter-spacing:.05em}
+h1{font-family:'Unbounded',sans-serif;font-size:clamp(30px,5vw,62px);font-weight:900;line-height:1.05;letter-spacing:-.02em;margin-bottom:16px}
+h1 .j{color:var(--a)} h1 .i{color:var(--a2)}
+.hs{font-size:16px;color:var(--tm);max-width:480px;margin:0 auto 36px;line-height:1.6}
+.stats{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:64px}
+.sp{display:flex;align-items:center;gap:10px;background:var(--s);border:1px solid var(--b);border-radius:12px;padding:12px 18px}
+.si{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px}
+.sn{font-family:'Unbounded',sans-serif;font-size:17px;font-weight:700}
+.sl{color:var(--tm);font-size:11px}
+section{margin-bottom:64px}
+.sh{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+.si2{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.st{font-family:'Unbounded',sans-serif;font-size:19px;font-weight:700;letter-spacing:-.01em}
+.ss{color:var(--tm);font-size:12px;margin-top:3px}
+/* ACCORDION */
+.ac{background:var(--s);border:1px solid var(--b);border-radius:16px;margin-bottom:10px;overflow:hidden;transition:border-color .2s,box-shadow .2s;animation:fu .3s ease both}
+@keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.ac:nth-child(1){animation-delay:.03s}.ac:nth-child(2){animation-delay:.06s}.ac:nth-child(3){animation-delay:.09s}.ac:nth-child(4){animation-delay:.12s}.ac:nth-child(5){animation-delay:.15s}
+.cy.open{border-color:rgba(245,158,11,.22);box-shadow:0 6px 30px rgba(245,158,11,.07)}
+.cc.open{border-color:rgba(6,182,212,.22);box-shadow:0 6px 30px rgba(6,182,212,.07)}
+.cp.open{border-color:rgba(168,85,247,.22);box-shadow:0 6px 30px rgba(168,85,247,.07)}
+.cg.open{border-color:rgba(34,197,94,.22);box-shadow:0 6px 30px rgba(34,197,94,.07)}
+.cr.open{border-color:rgba(239,68,68,.22);box-shadow:0 6px 30px rgba(239,68,68,.07)}
+.ah{display:flex;align-items:center;gap:12px;padding:18px 22px;cursor:pointer;user-select:none;transition:background .15s}
+.ah:hover{background:rgba(255,255,255,.02)}
+.astr{width:4px;height:34px;border-radius:4px;flex-shrink:0}
+.sy{background:var(--a)}.sc{background:var(--a2)}.sp2{background:var(--a3)}.sg{background:var(--a4)}.sr{background:var(--a5)}
+.al{flex:1;min-width:0}
+.atag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;margin-bottom:5px;letter-spacing:.07em;text-transform:uppercase}
+.ty{background:rgba(245,158,11,.12);color:var(--a)}.tc{background:rgba(6,182,212,.12);color:var(--a2)}.tp{background:rgba(168,85,247,.12);color:var(--a3)}.tg{background:rgba(34,197,94,.12);color:var(--a4)}.tr{background:rgba(239,68,68,.12);color:var(--a5)}
+.ati{font-family:'Unbounded',sans-serif;font-size:14px;font-weight:700;letter-spacing:-.01em}
+.am{font-size:11px;color:var(--tm);margin-top:3px}
+.acnt{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tm);padding:4px 10px;border-radius:8px;background:var(--s2);margin-right:6px;white-space:nowrap}
+.ach{font-size:14px;color:var(--tm);transition:transform .25s;flex-shrink:0}
+.ac.open .ach{transform:rotate(180deg)}
+.ab{display:none;padding:0 22px 22px}
+.ac.open .ab{display:block}
+/* Q&A */
+.ql{list-style:none}
+.qi{border-radius:10px;margin-bottom:6px;overflow:hidden;border:1px solid var(--b)}
+.qq{display:flex;align-items:flex-start;gap:10px;padding:13px 15px;cursor:pointer;background:var(--s2);transition:background .15s;user-select:none}
+.qq:hover{background:rgba(255,255,255,.04)}
+.qi.open .qq{background:var(--s3)}
+.qn{width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
+.ny{background:rgba(245,158,11,.2);color:var(--a)}.nc{background:rgba(6,182,212,.2);color:var(--a2)}.np{background:rgba(168,85,247,.2);color:var(--a3)}.ng{background:rgba(34,197,94,.2);color:var(--a4)}.nr{background:rgba(239,68,68,.2);color:var(--a5)}
+.qt{flex:1;font-size:13.5px;font-weight:500;line-height:1.45;color:#e2e8f0}
+.qa2{font-size:11px;color:var(--tm);transition:transform .2s;flex-shrink:0;margin-top:3px}
+.qi.open .qa2{transform:rotate(90deg)}
+.qans{display:none;padding:15px 15px 15px 45px;background:rgba(0,0,0,.3);font-size:13px;line-height:1.7;color:#94a3b8;border-top:1px solid var(--b)}
+.qi.open .qans{display:block}
+.qans code{font-family:'JetBrains Mono',monospace;font-size:12px;background:rgba(255,255,255,.06);border:1px solid var(--b);border-radius:5px;padding:1px 6px;color:#e2e8f0}
+.qans pre{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:rgba(0,0,0,.5);border:1px solid var(--b);border-radius:10px;padding:13px 15px;margin:10px 0;color:#a5f3fc;overflow-x:auto;line-height:1.6;white-space:pre-wrap}
+.h{color:#f1f5f9;font-weight:600}
+.qans ul{margin:8px 0 8px 16px}.qans ul li{margin-bottom:4px}
+.note{background:rgba(245,158,11,.08);border-left:3px solid var(--a);border-radius:0 8px 8px 0;padding:9px 13px;margin:9px 0;font-size:12.5px;color:#fcd34d}
+.warn{background:rgba(239,68,68,.08);border-left:3px solid var(--a5);border-radius:0 8px 8px 0;padding:9px 13px;margin:9px 0;font-size:12.5px;color:#fca5a5}
+.good{background:rgba(34,197,94,.08);border-left:3px solid var(--a4);border-radius:0 8px 8px 0;padding:9px 13px;margin:9px 0;font-size:12.5px;color:#86efac}
+/* Checklist */
+.cg2{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.ci{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:16px;display:flex;gap:12px;align-items:flex-start;transition:transform .15s}
+.ci:hover{transform:scale(1.02)}
+.cn{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;flex-shrink:0}
+.ct{font-size:12.5px;line-height:1.5;color:#cbd5e1}.ct strong{display:block;color:var(--t);font-size:13px;margin-bottom:3px}
+footer{text-align:center;padding:40px 0;color:var(--tm);font-size:12px;border-top:1px solid var(--b);margin-top:40px}
+footer span{color:var(--a)}
+@media(max-width:640px){.ah{padding:14px 16px}.ab{padding:0 16px 18px}.qans{padding-left:14px}}
+</style>
+</head>
+<body>
+<nav><div class="ni">
+  <span class="nl">☕ Java Guide</span>
+  <a href="#core" class="na">Core Java</a>
+  <a href="#oop" class="na">ООП</a>
+  <a href="#collections" class="na">Collections</a>
+  <a href="#concurrency" class="na">Многопоточность</a>
+  <a href="#jvm" class="na">JVM</a>
+  <a href="#spring" class="na">Spring</a>
+  <a href="#hibernate" class="na">Hibernate</a>
+  <a href="#sql" class="na">SQL</a>
+  <a href="#kafka" class="na">Kafka</a>
+  <a href="#checklist" class="na">Чек-лист</a>
+</div></nav>
+<div class="wrap">
+<header>
+  <div class="hb">▶ Подготовка к собеседованию</div>
+  <h1><span class="j">Java</span><br><span class="i">Interview</span> Guide</h1>
+  <p class="hs">Полная база вопросов с развёрнутыми ответами — кликни на вопрос чтобы раскрыть</p>
+</header>
+<div class="stats">
+  <div class="sp"><div class="si" style="background:rgba(245,158,11,.15)">☕</div><div><div class="sn" style="color:var(--a)">9</div><div class="sl">тем</div></div></div>
+  <div class="sp"><div class="si" style="background:rgba(6,182,212,.15)">❓</div><div><div class="sn" style="color:var(--a2)">120+</div><div class="sl">вопросов</div></div></div>
+  <div class="sp"><div class="si" style="background:rgba(168,85,247,.15)">💡</div><div><div class="sn" style="color:var(--a3)">120+</div><div class="sl">ответов</div></div></div>
+  <div class="sp"><div class="si" style="background:rgba(34,197,94,.15)">⚡</div><div><div class="sn" style="color:var(--a4)">Middle+</div><div class="sl">уровень</div></div></div>
+</div>
+
+<!-- CORE JAVA -->
+<section id="core">
+<div class="sh"><div class="si2" style="background:rgba(245,158,11,.15)">☕</div><div><div class="st">Core Java</div><div class="ss">Синтаксис, типы, исключения, Java 8+</div></div></div>
+
+<div class="ac cy open" onclick="toggleCard(this)">
+<div class="ah"><div class="astr sy"></div><div class="al"><div class="atag ty">Basics</div><div class="ati">Базовый синтаксис, типы, ключевые слова</div><div class="am">primitive types, autoboxing, final, static, varargs, передача параметров</div></div><span class="acnt">9 вопросов</span><span class="ach">▼</span></div>
+<div class="ab"><ul class="ql">
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">1</span><span class="qt">Что означает <code>public static void main(String[] args)</code>? Разбери каждое ключевое слово.</span><span class="qa2">▶</span></div><div class="qans"><span class="h">public</span> — модификатор доступа, метод видим из любого класса.<br><span class="h">static</span> — принадлежит классу, не объекту. JVM вызывает без создания экземпляра.<br><span class="h">void</span> — ничего не возвращает.<br><span class="h">main</span> — точка входа, JVM ищет именно это имя.<br><span class="h">String[] args</span> — массив аргументов командной строки.</div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">2</span><span class="qt">Назови все 8 примитивов. Чем они отличаются от объектов?</span><span class="qa2">▶</span></div><div class="qans">Примитивы: <code>byte, short, int, long, float, double, char, boolean</code>.<br><br>Хранятся на стеке, передаются по значению, нет методов, дешевле по памяти. Объекты — в Heap, передаются по ссылке, могут быть null.<br>У каждого примитива есть обёртка: <code>Integer, Long, Double, Boolean</code> и т.д. — нужны для коллекций, дженериков, nullable значений.</div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">3</span><span class="qt">Что такое autoboxing и unboxing? Какие подводные камни?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Autoboxing</span> — автоматическая конвертация примитива в обёртку: <code>Integer i = 5;</code><br><span class="h">Unboxing</span> — обратное: <code>int x = i;</code><div class="warn">Ловушка 1: NullPointerException при unboxing null → <code>Integer i = null; int x = i;</code> — NPE!<br>Ловушка 2: Integer кешируется только для -128..127. <code>Integer.valueOf(200) == Integer.valueOf(200)</code> → false! Используй .equals().</div><pre>Integer a = 127; Integer b = 127;
+System.out.println(a == b); // true (кеш)
+Integer c = 128; Integer d = 128;
+System.out.println(c == d); // false (разные объекты!)</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">4</span><span class="qt">Чем отличается <code>final</code> для переменной, метода и класса?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">final переменная</span> — нельзя переприсвоить ссылку (но изменить объект — можно!).<br><span class="h">final метод</span> — нельзя переопределить (override) в наследнике.<br><span class="h">final класс</span> — нельзя наследовать. Пример: <code>String</code>, <code>Integer</code> — final классы.<div class="note">static final = константа: <code>public static final int MAX_SIZE = 100;</code></div><div class="warn">final поле ссылочного типа: ссылку менять нельзя, но объект можно:<br><code>final List&lt;String&gt; list = new ArrayList&lt;&gt;(); list.add("ok"); // OK</code></div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">5</span><span class="qt">Что такое <code>static</code>? Когда использовать статические поля и методы?</span><span class="qa2">▶</span></div><div class="qans"><code>static</code> — член принадлежит классу, а не экземпляру. Одна копия на все объекты.<br><br><span class="h">Когда использовать:</span><ul><li>Утилитные методы без состояния: <code>Math.sqrt()</code>, <code>Collections.sort()</code></li><li>Константы: <code>public static final</code></li><li>Фабричные методы: <code>LocalDate.of()</code></li><li>Singleton паттерн</li><li>Счётчики экземпляров</li></ul><div class="warn">static поля — общее состояние для всех потоков. В многопоточности нужна синхронизация!</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">6</span><span class="qt">Java передаёт параметры по значению или по ссылке?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Всегда по значению!</span> Для объектов передаётся значение ссылки (копия адреса).<pre>void modify(int x) { x = 10; } // не изменит оригинал
+
+void modify(List&lt;String&gt; list) {
+  list.add("hi");         // изменит объект — та же ссылка
+  list = new ArrayList(); // не изменит переменную снаружи
+}
+
+int n = 5; modify(n); // n всё ещё 5
+List&lt;String&gt; lst = new ArrayList&lt;&gt;();
+modify(lst); // lst содержит "hi"</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">7</span><span class="qt">Что такое varargs (<code>...</code>)? Как работает под капотом?</span><span class="qa2">▶</span></div><div class="qans">Varargs — передача произвольного кол-ва аргументов. Компилятор превращает в массив.<pre>void print(String... args) {
+  for (String s : args) System.out.println(s);
+}
+print("a", "b", "c");              // компилятор: new String[]{"a","b","c"}
+print(new String[]{"a", "b"});     // явный массив тоже OK</pre>Varargs должен быть последним параметром. Нельзя два varargs в одном методе.</div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">8</span><span class="qt">Что нового в Java 8? Главные фичи.</span><span class="qa2">▶</span></div><div class="qans"><ul><li><span class="h">Lambda expressions</span> — <code>(a, b) -&gt; a + b</code></li><li><span class="h">Stream API</span> — функциональная обработка коллекций</li><li><span class="h">Optional&lt;T&gt;</span> — обёртка для nullable значений</li><li><span class="h">default/static методы в интерфейсах</span></li><li><span class="h">Method references</span> — <code>String::toLowerCase</code>, <code>User::new</code></li><li><span class="h">Новый Date/Time API</span> — LocalDate, LocalDateTime, ZonedDateTime</li><li><span class="h">CompletableFuture</span> — неблокирующая асинхронность</li></ul></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">9</span><span class="qt">Что такое <code>Optional</code>? Как правильно использовать?</span><span class="qa2">▶</span></div><div class="qans">Optional — контейнер, явно указывающий что значение может отсутствовать. Исключает NPE при правильном использовании.<pre>Optional&lt;User&gt; user = repo.findById(id);
+user.ifPresent(u -&gt; System.out.println(u.getName()));
+String name = user.map(User::getName).orElse("Unknown");
+User u = user.orElseThrow(() -&gt; new NotFoundException(id));</pre><div class="warn">Антипаттерны: <code>opt.get()</code> без isPresent(), Optional как поле класса, Optional как параметр метода. Optional предназначен для возвращаемых значений!</div></div></li>
+
+</ul></div></div>
+
+<div class="ac cy" onclick="toggleCard(this)">
+<div class="ah"><div class="astr sy"></div><div class="al"><div class="atag ty">Exceptions</div><div class="ati">Исключения — полная картина</div><div class="am">checked, unchecked, Error, try-with-resources, throw vs throws, multi-catch</div></div><span class="acnt">8 вопросов</span><span class="ach">▼</span></div>
+<div class="ab"><ul class="ql">
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">1</span><span class="qt">Иерархия исключений в Java. Checked vs Unchecked vs Error.</span><span class="qa2">▶</span></div><div class="qans"><pre>Throwable
+├── Error (OutOfMemoryError, StackOverflowError) — не ловить!
+└── Exception
+    ├── Checked (IOException, SQLException) — компилятор требует обработки
+    └── RuntimeException (Unchecked) — компилятор не требует
+        ├── NullPointerException
+        ├── IllegalArgumentException
+        ├── ClassCastException
+        └── ...</pre><div class="note">Checked — для восстанавливаемых ситуаций (файл не найден, нет сети). Unchecked — для ошибок программирования.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">2</span><span class="qt">Разница между <code>throw</code> и <code>throws</code>?</span><span class="qa2">▶</span></div><div class="qans"><code>throw</code> — выброс конкретного исключения прямо сейчас:<br><code>throw new IllegalArgumentException("age must be positive");</code><br><br><code>throws</code> — объявление в сигнатуре что метод может выбросить:<br><code>void readFile(String path) throws IOException, FileNotFoundException {}</code><div class="note">throws нужен только для Checked исключений — для RuntimeException необязателен.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">3</span><span class="qt">Что такое <code>try-with-resources</code>? Чем лучше finally?</span><span class="qa2">▶</span></div><div class="qans">Автоматически закрывает ресурсы (AutoCloseable) после блока. Несколько ресурсов — закрываются в обратном порядке.<pre>try (Connection conn = dataSource.getConnection();
+     PreparedStatement ps = conn.prepareStatement(sql)) {
+  // используем
+} // ps.close(), затем conn.close() — автоматически</pre><div class="good">Преимущество перед finally: если исключение в close() — оно становится suppressed, оригинальное не теряется. С finally — оригинальное исключение терялось!</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">4</span><span class="qt">Выполнится ли <code>finally</code>, если вызвать <code>System.exit()</code> или если поток убит?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">System.exit()</span> — finally НЕ выполнится. JVM завершается немедленно.<br><span class="h">Thread.stop()</span> (deprecated) — finally может не выполниться.<br><span class="h">Thread.interrupt()</span> — finally выполнится.<br><span class="h">В остальных случаях</span> — finally всегда выполняется, даже при return в try.<div class="warn">Порядок: try → если исключение → catch → finally → (продолжение или re-throw)</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">5</span><span class="qt">Что такое multi-catch (Java 7)?</span><span class="qa2">▶</span></div><div class="qans"><pre>// До Java 7 — дублирование кода
+try { risky(); }
+catch (IOException e) { handle(e); }
+catch (SQLException e) { handle(e); }
+
+// Java 7+ — multi-catch
+try { risky(); }
+catch (IOException | SQLException e) {
+  handle(e); // e — effectively final, нельзя переприсвоить
+}</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">6</span><span class="qt">Как создать своё исключение? Что обязательно сделать?</span><span class="qa2">▶</span></div><div class="qans"><pre>public class OrderNotFoundException extends RuntimeException {
+  private final Long orderId;
+
+  public OrderNotFoundException(Long id) {
+    super("Order not found: " + id);
+    this.orderId = id;
+  }
+  // Конструктор с cause — ВАЖЕН для сохранения стектрейса!
+  public OrderNotFoundException(Long id, Throwable cause) {
+    super("Order not found: " + id, cause);
+    this.orderId = id;
+  }
+  public Long getOrderId() { return orderId; }
+}</pre><div class="warn">Всегда добавляй конструктор с Throwable cause — иначе при оборачивании исключения потеряешь оригинальный стектрейс!</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">7</span><span class="qt">Что такое <code>Exception chaining</code> (цепочки исключений)?</span><span class="qa2">▶</span></div><div class="qans">Оборачивание низкоуровневого исключения в высокоуровневое с сохранением причины.<pre>try {
+  db.save(entity);
+} catch (SQLException e) {
+  // НЕ ПРАВИЛЬНО: throw new ServiceException("save failed"); — теряем cause
+  // ПРАВИЛЬНО:
+  throw new ServiceException("Failed to save order", e); // e = cause
+}
+// В стектрейсе увидим: ServiceException caused by: SQLException</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">8</span><span class="qt">Можно ли перехватить <code>Error</code>? Когда это уместно?</span><span class="qa2">▶</span></div><div class="qans">Технически можно: <code>catch (Error e)</code> или <code>catch (Throwable t)</code>.<div class="warn">В продакшне — плохая практика. Error означает JVM в нестабильном состоянии. Единственные исключения:<br>- Логирование с последующим re-throw в глобальных обработчиках<br>- AssertionError в тестах<br>- StackOverflowError для защиты рекурсии (редко)</div></div></li>
+
+</ul></div></div>
+
+<div class="ac cy" onclick="toggleCard(this)">
+<div class="ah"><div class="astr sy"></div><div class="al"><div class="atag ty">String</div><div class="ati">String, StringBuilder, StringBuffer — всё про строки</div><div class="am">immutability, String Pool, intern(), методы, производительность</div></div><span class="acnt">7 вопросов</span><span class="ach">▼</span></div>
+<div class="ab"><ul class="ql">
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">1</span><span class="qt">Почему String immutable? 4 причины.</span><span class="qa2">▶</span></div><div class="qans">1. <span class="h">String Pool</span> — JVM кеширует литералы. Если бы String был изменяемым, один поток изменил бы строку другого через пул.<br>2. <span class="h">Thread-safe</span> — неизменяемые объекты безопасны без синхронизации.<br>3. <span class="h">Безопасность</span> — строки используются как пути, пароли, сетевые адреса. Изменяемость = уязвимость.<br>4. <span class="h">hashCode кеш</span> — вычисляется один раз при первом вызове, затем кешируется. Ускоряет HashMap.</div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">2</span><span class="qt">Что такое String Pool? Как работает <code>intern()</code>?</span><span class="qa2">▶</span></div><div class="qans">String Pool (String Intern Pool) — специальная область в Heap для уникальных строковых литералов.<pre>String a = "hello";             // в пул
+String b = "hello";             // тот же объект из пула
+String c = new String("hello"); // НОВЫЙ объект в Heap, минуя пул
+System.out.println(a == b);     // true
+System.out.println(a == c);     // false
+System.out.println(a == c.intern()); // true — intern() помещает в пул</pre><div class="note">intern() может экономить память при большом числе одинаковых строк, но вызывает GC pressure на пул. Используй осознанно.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">3</span><span class="qt">String vs StringBuilder vs StringBuffer — когда что?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">String</span> — immutable. Каждая операция создаёт новый объект. Для констант и редких операций.<br><span class="h">StringBuilder</span> — mutable, НЕ thread-safe. Для конкатенации в одном потоке. Быстрый.<br><span class="h">StringBuffer</span> — mutable, thread-safe (все методы synchronized). Медленнее. Почти не нужен — в многопоточности обычно нет смысла строить строку одновременно.<div class="note">Компилятор автоматически заменяет + на StringBuilder, но только вне циклов. В цикле — явный StringBuilder.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">4</span><span class="qt">Что происходит при конкатенации строк в цикле через <code>+</code>?</span><span class="qa2">▶</span></div><div class="qans"><pre>// ПЛОХО — O(n²), каждый шаг создаёт новую строку
+String result = "";
+for (int i = 0; i &lt; 10000; i++) {
+  result += i; // новый объект String каждый раз!
+}
+
+// ХОРОШО — O(n), один объект
+StringBuilder sb = new StringBuilder();
+for (int i = 0; i &lt; 10000; i++) {
+  sb.append(i);
+}
+String result = sb.toString();</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">5</span><span class="qt">Чем <code>==</code> отличается от <code>.equals()</code> для строк?</span><span class="qa2">▶</span></div><div class="qans"><code>==</code> — сравнивает ссылки (адреса в памяти).<br><code>.equals()</code> — сравнивает содержимое.<div class="warn">НИКОГДА не сравнивай строки через ==. Используй:<br><code>str.equals("hello")</code> — если str может быть null → NPE!<br><code>"hello".equals(str)</code> — безопаснее<br><code>Objects.equals(str1, str2)</code> — null-safe, лучший вариант</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">6</span><span class="qt">Важнейшие методы String — что точно нужно знать?</span><span class="qa2">▶</span></div><div class="qans"><code>equals(), equalsIgnoreCase()</code> — сравнение<br><code>contains(), startsWith(), endsWith()</code> — поиск<br><code>indexOf(), lastIndexOf()</code> — позиция<br><code>substring(from, to)</code> — подстрока<br><code>split(regex, limit)</code> — разделение<br><code>trim()</code> — обрезка ASCII пробелов, <code>strip()</code> — Unicode-aware (Java 11+)<br><code>replace(old, new)</code>, <code>replaceAll(regex, replacement)</code><br><code>String.join(delim, elements)</code> — объединение<br><code>String.format(template, args)</code> — форматирование<br><code>toCharArray(), chars()</code> — работа с символами<br><code>matches(regex)</code> — проверка по паттерну</div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">7</span><span class="qt">Что такое Text Blocks (Java 15+)?</span><span class="qa2">▶</span></div><div class="qans">Многострочные строки без экранирования:<pre>// Старый способ
+String json = "{\n  \"name\": \"John\",\n  \"age\": 30\n}";
+
+// Text Block (Java 15+)
+String json = """
+    {
+      "name": "John",
+      "age": 30
+    }
+    """;
+// Отступы автоматически убираются относительно закрывающего """</pre><div class="good">Идеально для SQL, JSON, HTML в коде. Читаемость — на порядок лучше.</div></div></li>
+
+</ul></div></div>
+</section>
+
+<!-- ООП -->
+<section id="oop">
+<div class="sh"><div class="si2" style="background:rgba(245,158,11,.15)">🧩</div><div><div class="st">ООП</div><div class="ss">4 принципа, SOLID, паттерны, практика</div></div></div>
+
+<div class="ac cy" onclick="toggleCard(this)">
+<div class="ah"><div class="astr sy"></div><div class="al"><div class="atag ty">4 принципа</div><div class="ati">Инкапсуляция, наследование, полиморфизм, абстракция</div><div class="am">объяснение + примеры кода — именно так спрашивают на собеседовании</div></div><span class="acnt">10 вопросов</span><span class="ach">▼</span></div>
+<div class="ab"><ul class="ql">
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">1</span><span class="qt">Что такое инкапсуляция? Зачем нужны геттеры и сеттеры?</span><span class="qa2">▶</span></div><div class="qans">Инкапсуляция — сокрытие внутреннего состояния, предоставление доступа только через методы.<pre>public class BankAccount {
+  private double balance; // скрытое состояние
+
+  public void deposit(double amount) {
+    if (amount &lt;= 0) throw new IllegalArgumentException();
+    this.balance += amount; // валидация + бизнес-логика
+  }
+  public double getBalance() { return balance; } // только чтение
+  // нет setBalance() — нельзя поставить произвольный баланс!
+}</pre><div class="good">Можно изменить внутреннюю реализацию (например, хранить в копейках) не меняя публичный API. Контроль инвариантов объекта.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">2</span><span class="qt">Что такое наследование? Composition over Inheritance — почему?</span><span class="qa2">▶</span></div><div class="qans">Наследование — получение полей и методов родителя через <code>extends</code>. В Java одиночное.<br><br><span class="h">Проблемы наследования:</span><ul><li>Хрупкий базовый класс — изменение родителя ломает всех наследников</li><li>Нарушение LSP — наследник может вести себя неожиданно</li><li>Тесная связанность, сложно тестировать</li><li>Невозможно изменить решение без рефакторинга</li></ul><pre>// Наследование — тесная связь
+class Dog extends Animal { ... }
+
+// Композиция — гибко
+class Dog {
+  private final Behavior behavior; // можно подменить
+  private final Sound sound;
+}</pre><div class="note">«Prefer composition over inheritance» — Effective Java, Item 18. Наследование уместно когда есть чёткое отношение IS-A.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">3</span><span class="qt">Compile-time vs Runtime полиморфизм — объясни с примерами.</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Compile-time (статический) — overloading:</span><pre>class Printer {
+  void print(int x)    { System.out.println("int: " + x); }
+  void print(String s) { System.out.println("str: " + s); }
+  // Компилятор выбирает метод по типу аргумента</pre><span class="h">Runtime (динамический) — overriding:</span><pre>Animal a = new Dog(); // Dog переопределяет speak()
+a.speak(); // JVM смотрит реальный тип (Dog) и вызывает Dog.speak()
+// Это называется virtual method invocation / dynamic dispatch</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">4</span><span class="qt">Overloading vs Overriding — ключевые отличия. Что нельзя переопределить?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Overloading:</span> тот же класс, то же имя метода, разные параметры. Compile-time. Возвращаемый тип может отличаться.<br><span class="h">Overriding:</span> наследник меняет реализацию метода родителя. Runtime. Сигнатура должна совпадать. Аннотация <code>@Override</code> — защита от опечаток.<br><br><span class="h">Нельзя переопределить:</span><ul><li><code>static</code> методы — можно скрыть (hiding), но не override</li><li><code>final</code> методы</li><li><code>private</code> методы</li><li>Конструкторы (они не наследуются)</li></ul></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">5</span><span class="qt">Abstract class vs Interface — когда что выбрать? Изменения в Java 8.</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Abstract class:</span> может иметь состояние (поля), конструкторы, реализованные методы. Один extends.<br><span class="h">Interface:</span> контракт. До Java 8 — только абстрактные методы. Java 8+: default и static методы. Java 9+: private методы. Несколько implements.<br><br><span class="h">Когда abstract class:</span> Template Method паттерн, общее состояние/поведение, частичная реализация.<br><span class="h">Когда interface:</span> контракт для DI, multiple "types" для одного класса, API.<pre>// Template Method с abstract class
+abstract class Report {
+  final void generate() { // final — нельзя переопределить шаблон
+    fetchData();
+    String content = formatData(); // abstract
+    save(content);
+  }
+  abstract String formatData();
+  void fetchData() { /* дефолтная реализация */ }
+}</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">6</span><span class="qt">Зачем default методы в интерфейсах? Проблема diamond?</span><span class="qa2">▶</span></div><div class="qans">Добавить новые методы в интерфейс без поломки существующих реализаций. Пример: <code>forEach()</code> в Iterable — тысячи классов получили его автоматически.<pre>interface A { default void hello() { System.out.println("A"); } }
+interface B { default void hello() { System.out.println("B"); } }
+
+class C implements A, B {
+  // Компилятор требует явного переопределения при конфликте!
+  @Override
+  public void hello() { A.super.hello(); } // явный выбор
+}</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">7</span><span class="qt">SOLID принципы — объясни каждый с примером нарушения.</span><span class="qa2">▶</span></div><div class="qans"><span class="h">S — Single Responsibility:</span> класс имеет одну причину для изменения.<br>Нарушение: <code>UserService</code> и сохраняет в БД, и отправляет email, и генерирует PDF.<br><br><span class="h">O — Open/Closed:</span> открыт для расширения, закрыт для изменения.<br>Нарушение: switch/if по типам — новый тип = правка существующего кода.<br><br><span class="h">L — Liskov Substitution:</span> наследник заменяет родителя без сюрпризов.<br>Нарушение: <code>Square extends Rectangle</code> нарушает LSP — изменение ширины меняет высоту.<br><br><span class="h">I — Interface Segregation:</span> много маленьких интерфейсов лучше одного большого.<br>Нарушение: интерфейс Worker с методами work() и eat() — роботы не едят!<br><br><span class="h">D — Dependency Inversion:</span> зависи от абстракций.<br>Нарушение: <code>OrderService</code> напрямую создаёт <code>new MySQLOrderRepo()</code>.</div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">8</span><span class="qt">Что произойдёт если переопределить <code>equals()</code> но не <code>hashCode()</code>?</span><span class="qa2">▶</span></div><div class="qans">Нарушение контракта: «если a.equals(b) == true, то a.hashCode() == b.hashCode()».<pre>class User {
+  String name;
+  @Override
+  public boolean equals(Object o) {
+    return o instanceof User u && name.equals(u.name);
+  }
+  // hashCode НЕ переопределён → Object.hashCode() = адрес памяти
+}
+Map&lt;User, String&gt; map = new HashMap&lt;&gt;();
+User u1 = new User("John"); // hashCode = 12345
+User u2 = new User("John"); // hashCode = 67890 (другой!)
+map.put(u1, "admin");
+map.get(u2); // null! Ищет в корзине 67890, а u1 в корзине 12345
+new HashSet&lt;&gt;(List.of(u1, u2)).size(); // 2, а не 1!</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">9</span><span class="qt">Как создать immutable класс? Правила.</span><span class="qa2">▶</span></div><div class="qans"><pre>public final class Money { // 1. final класс
+  private final long amount;      // 2. final поля
+  private final Currency currency; // 3. final поля
+
+  public Money(long amount, Currency currency) {
+    this.amount = Objects.requireNonNull(amount);
+    this.currency = Objects.requireNonNull(currency);
+  }
+  public long getAmount() { return amount; }    // 4. только геттеры
+  public Currency getCurrency() { return currency; }
+
+  public Money add(Money other) { // 5. операции возвращают новый объект
+    if (!currency.equals(other.currency)) throw new IllegalArgumentException();
+    return new Money(amount + other.amount, currency);
+  }
+  // 6. если поле — mutable объект (List, Date), возвращать defensive copy
+}</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">10</span><span class="qt">Что такое <code>instanceof</code> и pattern matching (Java 16+)?</span><span class="qa2">▶</span></div><div class="qans"><pre>// Старый способ
+if (obj instanceof String) {
+  String s = (String) obj; // явный cast
+  System.out.println(s.length());
+}
+
+// Java 16+ — pattern matching
+if (obj instanceof String s) { // bind variable сразу!
+  System.out.println(s.length()); // s уже типа String
+}
+
+// Java 21 — switch pattern matching
+String result = switch (obj) {
+  case Integer i -&gt; "int: " + i;
+  case String s when s.length() &gt; 5 -&gt; "long string: " + s;
+  case null -&gt; "null";
+  default -&gt; "other";
+};</pre></div></li>
+
+</ul></div></div>
+</section>
+
+<!-- COLLECTIONS -->
+<section id="collections">
+<div class="sh"><div class="si2" style="background:rgba(6,182,212,.15)">📦</div><div><div class="st">Collections Framework</div><div class="ss">HashMap, List, Set, Queue, Thread-safe коллекции</div></div></div>
+
+<div class="ac cc" onclick="toggleCard(this)">
+<div class="ah"><div class="astr sc"></div><div class="al"><div class="atag tc">HashMap</div><div class="ati">HashMap — внутреннее устройство (горячая тема)</div><div class="am">хеширование, коллизии, treeify, resize, load factor, null</div></div><span class="acnt">10 вопросов</span><span class="ach">▼</span></div>
+<div class="ab"><ul class="ql">
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">1</span><span class="qt">Пошагово: что происходит при <code>map.put(key, value)</code>?</span><span class="qa2">▶</span></div><div class="qans">1. Вычисляется <code>key.hashCode()</code>.<br>2. Перемешивание хеша: <code>hash = h ^ (h >>> 16)</code> — снижает коллизии при малой capacity.<br>3. Индекс корзины: <code>index = hash &amp; (capacity - 1)</code> (аналог % но быстрее).<br>4. Если корзина пустая → кладём Node{hash, key, value, next=null}.<br>5. Если занята (коллизия) → проходим по списку/дереву, сравниваем через equals.<br>   - Ключ найден → перезаписываем value.<br>   - Не найден → добавляем в конец.<br>6. Если size > capacity * loadFactor → resize (удвоение).<div class="note">Начальная capacity = 16. LoadFactor = 0.75. Resize при 12 элементах.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">2</span><span class="qt">Что такое коллизия? Как решается в Java 8+?</span><span class="qa2">▶</span></div><div class="qans">Коллизия — два разных ключа дают одинаковый индекс корзины.<br><br><span class="h">До Java 8:</span> цепочки (chaining) — LinkedList в корзине. Поиск O(n) при массе коллизий.<br><span class="h">Java 8+:</span> если в корзине ≥ 8 элементов И capacity ≥ 64 → <span class="h">treeify</span>: список → красно-чёрное дерево. Поиск O(log n).<br>Когда корзина уменьшается до 6 → обратно в список (untreeify).<div class="warn">Намеренные коллизии (все ключи с одинаковым hashCode) — атака типа HashDoS. Именно поэтому в Java 8 добавили treeify.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">3</span><span class="qt">Что такое resize? К чему ведёт в многопоточности?</span><span class="qa2">▶</span></div><div class="qans">Resize — создание нового массива capacity×2 и перехеширование всех элементов. O(n).<br>Элементы распределяются в new_index = old_index или old_index + oldCapacity.<div class="warn">Java 7: два потока делающих resize одновременно → бесконечный цикл в linked list → 100% CPU вечно! В Java 8 это исправлено, но race condition всё равно приводит к потере данных.<br>Вывод: используй ConcurrentHashMap в многопоточности.</div><div class="note">Оптимизация: <code>new HashMap&lt;&gt;(expectedSize * 4 / 3 + 1)</code> — избежать resize.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">4</span><span class="qt">Можно ли использовать null в HashMap? А в других Map?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">HashMap</span> — один null-ключ (в корзине [0]), любое число null-значений. ✓<br><span class="h">LinkedHashMap, TreeMap</span> — null-значения OK; null-ключ: TreeMap → NPE при сравнении. ✗<br><span class="h">Hashtable</span> — null ключ или значение → NPE. ✗<br><span class="h">ConcurrentHashMap</span> — null ключ или значение → NPE. ✗<div class="note">ConcurrentHashMap запрещает null намеренно: невозможно различить «ключ отсутствует» и «значение равно null» без дополнительных блокировок.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">5</span><span class="qt">HashMap vs LinkedHashMap vs TreeMap — разница?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">HashMap</span> — нет гарантий порядка. O(1) get/put/remove.<br><span class="h">LinkedHashMap</span> — сохраняет порядок вставки (или порядок доступа — для LRU кеша). Доп. prev/next ссылки. O(1).<br><span class="h">TreeMap</span> — отсортированные ключи (Comparable или Comparator). O(log n). Реализует NavigableMap: floorKey, ceilingKey, subMap, headMap, tailMap.<pre>// LRU кеш через LinkedHashMap
+new LinkedHashMap&lt;&gt;(capacity, 0.75f, true) {
+  @Override protected boolean removeEldestEntry(Map.Entry eldest) {
+    return size() &gt; capacity;
+  }
+};</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">6</span><span class="qt">Что будет если у всех ключей hashCode() возвращает константу?</span><span class="qa2">▶</span></div><div class="qans">Все элементы попадут в одну корзину. HashMap превращается в LinkedList (или дерево при ≥8).<br>get/put → O(n) вместо O(1). При 10000 элементах — 10000 вызовов equals при каждом запросе.<div class="warn">Классический вопрос-ловушка. HashMap будет работать корректно, но крайне медленно. Именно поэтому важно хороший hashCode.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">7</span><span class="qt">Что такое fail-fast и fail-safe итераторы? ConcurrentModificationException?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Fail-fast</span> — при изменении коллекции во время итерации бросает ConcurrentModificationException. Реализован через счётчик modCount: итератор запоминает modCount при создании, проверяет при каждом next().<br>Пример: ArrayList, HashMap, HashSet.<br><br><span class="h">Fail-safe</span> — итерирует по снимку (snapshot), исключений нет, данные могут быть устаревшими.<br>Пример: ConcurrentHashMap, CopyOnWriteArrayList.<pre>// Как правильно удалять при итерации:
+Iterator&lt;String&gt; it = list.iterator();
+while (it.hasNext()) {
+  if (condition(it.next())) it.remove(); // через итератор — OK
+}
+// Java 8+:
+list.removeIf(s -&gt; condition(s)); // removeIf — безопасно</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">8</span><span class="qt">computeIfAbsent vs putIfAbsent vs getOrDefault?</span><span class="qa2">▶</span></div><div class="qans"><code>getOrDefault(key, def)</code> — вернуть значение или дефолт, не изменяет Map.<br><code>putIfAbsent(key, value)</code> — добавить если нет. Значение создаётся ВСЕГДА, даже если ключ есть.<br><code>computeIfAbsent(key, fn)</code> — функция вызывается только если ключа нет. Ленивая инициализация.<pre>// Группировка — классический паттерн
+Map&lt;String, List&lt;User&gt;&gt; byCity = new HashMap&lt;&gt;();
+users.forEach(u -&gt;
+  byCity.computeIfAbsent(u.getCity(), k -&gt; new ArrayList&lt;&gt;()).add(u)
+);</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">9</span><span class="qt">WeakHashMap, IdentityHashMap, EnumMap — когда использовать?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">WeakHashMap</span> — ключи через WeakReference. GC удаляет запись когда ключ недостижим. Для кешей, ClassLoader кешей.<br><br><span class="h">IdentityHashMap</span> — сравнивает ключи через == (ссылки), а не equals. Для сериализации, определения циклов в графах.<br><br><span class="h">EnumMap</span> — ключи-enum. Внутри простой массив по ordinal(). O(1), меньше памяти чем HashMap.<div class="good">Всегда используй EnumMap вместо HashMap когда ключи — enum значения. Аналогично EnumSet вместо HashSet.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">10</span><span class="qt">Как работает Stream API? Что такое lazy evaluation?</span><span class="qa2">▶</span></div><div class="qans">Stream — конвейер операций. Промежуточные (filter, map, sorted) — ленивые, не выполняются. Терминальная (collect, forEach, count) — запускает весь конвейер.<pre>// Без терминальной — НИЧЕГО не выполнится
+Stream&lt;User&gt; stream = users.stream()
+  .filter(u -&gt; { System.out.println("filter"); return u.isActive(); });
+// Тут ни одного "filter" ещё!
+stream.collect(Collectors.toList()); // теперь выполняется
+
+// Short-circuit: findFirst останавливает обработку как только найдёт
+Optional&lt;User&gt; first = users.stream()
+  .filter(u -&gt; u.getAge() &gt; 18)
+  .findFirst(); // не обрабатывает весь список!</pre><div class="note">parallelStream() — ForkJoinPool. Эффективен при CPU-bound операциях и больших коллекциях. При малых коллекциях overhead от параллелизма хуже.</div></div></li>
+
+</ul></div></div>
+
+<div class="ac cc" onclick="toggleCard(this)">
+<div class="ah"><div class="astr sc"></div><div class="al"><div class="atag tc">List &amp; Set</div><div class="ati">ArrayList, LinkedList, HashSet, TreeSet, PriorityQueue</div><div class="am">сложности операций, внутреннее устройство, выбор структуры</div></div><span class="acnt">7 вопросов</span><span class="ach">▼</span></div>
+<div class="ab"><ul class="ql">
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">1</span><span class="qt">ArrayList vs LinkedList — сложности и когда что выбрать?</span><span class="qa2">▶</span></div><div class="qans"><pre>Операция         ArrayList    LinkedList
+get(i)           O(1)         O(n)
+add(конец)       O(1)*        O(1)
+add(i)           O(n)         O(n) [O(1) если есть итератор]
+remove(i)        O(n)         O(n) [O(1) если есть итератор]
+contains         O(n)         O(n)
+* амортизированно</pre><div class="note">На практике ArrayList почти всегда быстрее из-за cache locality процессора. Элементы ArrayList в памяти рядом → меньше cache miss. LinkedList — каждый узел отдельный объект в куче.</div><div class="warn">LinkedList реально выигрывает только при очень частых вставках/удалениях В СЕРЕДИНУ с уже известным итератором. Для дек/стека используй ArrayDeque.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">2</span><span class="qt">Как устроен ArrayList? Что происходит при переполнении?</span><span class="qa2">▶</span></div><div class="qans">ArrayList хранит элементы в <code>Object[] elementData</code>. Начальная capacity = 10 (или 0 при new ArrayList<>() без size).<br><br>При переполнении (size == capacity):<br>1. <code>newCapacity = oldCapacity + (oldCapacity >> 1)</code> = capacity × 1.5<br>2. <code>Arrays.copyOf(elementData, newCapacity)</code> — O(n)<br>3. Старый массив становится мусором для GC.<div class="good">Оптимизация: знаешь размер → <code>new ArrayList&lt;&gt;(expectedSize)</code> или ensureCapacity(). Избегает повторных расширений.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">3</span><span class="qt">HashSet vs TreeSet vs LinkedHashSet — разница?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">HashSet</span> — обёртка над HashMap (value = константный объект). Нет порядка. O(1) add/remove/contains.<br><span class="h">TreeSet</span> — обёртка над TreeMap. Отсортированный порядок. O(log n). Методы: first(), last(), headSet(), tailSet(), subSet().<br><span class="h">LinkedHashSet</span> — обёртка над LinkedHashMap. Порядок вставки. O(1). Чуть больше памяти.</div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">4</span><span class="qt">Comparable vs Comparator — разница и применение?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Comparable</span> — объект сам определяет «естественный» порядок через <code>compareTo()</code>. Один порядок на класс.<br><span class="h">Comparator</span> — внешняя стратегия сравнения. Множество разных порядков.<pre>// Comparable
+class User implements Comparable&lt;User&gt; {
+  @Override public int compareTo(User other) {
+    return this.name.compareTo(other.name);
+  }
+}
+// Comparator — Java 8+
+Comparator&lt;User&gt; comp = Comparator
+  .comparing(User::getAge)
+  .thenComparing(User::getName)
+  .reversed();
+users.sort(comp);</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">5</span><span class="qt">Что такое PriorityQueue? Как работает мин-куча?</span><span class="qa2">▶</span></div><div class="qans">PriorityQueue — очередь с приоритетами. Внутри — бинарная мин-куча (min-heap) на массиве.<br>poll() всегда возвращает минимальный элемент. O(log n) для add()/poll(). O(1) для peek().<pre>PriorityQueue&lt;Integer&gt; minHeap = new PriorityQueue&lt;&gt;();
+PriorityQueue&lt;Integer&gt; maxHeap = new PriorityQueue&lt;&gt;(Comparator.reverseOrder());
+
+// Топ-K наименьших из потока:
+PriorityQueue&lt;Integer&gt; topK = new PriorityQueue&lt;&gt;(Comparator.reverseOrder());
+for (int n : numbers) {
+  topK.offer(n);
+  if (topK.size() &gt; k) topK.poll(); // удаляем максимум
+}</pre><div class="note">PriorityQueue НЕ гарантирует порядок при итерации — только poll() возвращает в правильном порядке.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">6</span><span class="qt">ArrayDeque vs LinkedList для стека и очереди?</span><span class="qa2">▶</span></div><div class="qans">Оба реализуют Deque (двусторонняя очередь), но ArrayDeque быстрее.<pre>Deque&lt;String&gt; stack = new ArrayDeque&lt;&gt;(); // стек
+stack.push("a"); stack.push("b");
+stack.pop(); // "b"
+
+Deque&lt;String&gt; queue = new ArrayDeque&lt;&gt;(); // очередь
+queue.offer("a"); queue.offer("b");
+queue.poll(); // "a"</pre><div class="good">ArrayDeque — внутри циклический массив, cache-friendly. Быстрее LinkedList и даже Stack (который synchronized и устарел). Используй ArrayDeque для стека и очереди.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">7</span><span class="qt">Что такое BlockingQueue? Реализации и применение.</span><span class="qa2">▶</span></div><div class="qans">BlockingQueue — очередь с блокирующими операциями: take() ждёт если пусто, put() ждёт если полна.<ul><li><code>ArrayBlockingQueue(capacity)</code> — ограниченный размер, массив, один lock</li><li><code>LinkedBlockingQueue</code> — опционально ограниченный, два lock'а (head + tail)</li><li><code>PriorityBlockingQueue</code> — с приоритетами, неограниченный</li><li><code>SynchronousQueue</code> — нет буфера, прямая передача между потоками</li><li><code>DelayQueue</code> — элементы становятся доступны через заданное время</li></ul><div class="note">ThreadPoolExecutor использует BlockingQueue внутри для хранения задач!</div></div></li>
+
+</ul></div></div>
+
+<div class="ac cc" onclick="toggleCard(this)">
+<div class="ah"><div class="astr sc"></div><div class="al"><div class="atag tc">Thread-Safe</div><div class="ati">ConcurrentHashMap, CopyOnWriteArrayList, синхронизированные коллекции</div><div class="am">производительность, когда что выбирать, подводные камни</div></div><span class="acnt">5 вопросов</span><span class="ach">▼</span></div>
+<div class="ab"><ul class="ql">
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">1</span><span class="qt">ConcurrentHashMap vs Hashtable vs synchronizedMap — детальное сравнение?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Hashtable</span> — все публичные методы synchronized на весь объект. Только один поток в любой момент. Устарело.<br><br><span class="h">Collections.synchronizedMap()</span> — обёртка, тот же эффект: блокируется весь объект. Итерация требует внешней синхронизации.<br><br><span class="h">ConcurrentHashMap</span> — Java 7: 16 сегментов, блокировка на сегмент. Java 8+: CAS + synchronized только на уровне корзины. Множество потоков работают одновременно с разными корзинами.<div class="good">ConcurrentHashMap в 10-100 раз быстрее Hashtable при конкурентном доступе. Всегда используй ConcurrentHashMap.</div><div class="warn">ConcurrentHashMap не гарантирует консистентность составных операций: check-then-act всё равно нужно делать через атомарные методы (putIfAbsent, computeIfAbsent).</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">2</span><span class="qt">Что такое CopyOnWriteArrayList? Когда использовать?</span><span class="qa2">▶</span></div><div class="qans">При каждой записи (add, remove, set) создаётся полная копия массива. Чтения — без блокировок, на неизменяемом снимке.<div class="good">Когда: чтений намного больше записей — списки слушателей/наблюдателей (EventListeners), кеши конфигурации, whitelist/blacklist правила.</div><div class="warn">При частых записях — катастрофа: O(n) при каждом изменении. Итератор видит снимок на момент создания — не видит последующих изменений.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">3</span><span class="qt">Можно ли изменять ConcurrentHashMap во время итерации?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Да!</span> ConcurrentHashMap — fail-safe итератор. Не бросает ConcurrentModificationException.<br><br>Итератор weakly consistent: отражает состояние на момент создания, может видеть или не видеть последующие изменения. Нет гарантий полной консистентности.<div class="note">Это именно то что нужно в большинстве concurrent сценариев — не упасть с исключением важнее чем видеть все изменения.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">4</span><span class="qt">Что такое ConcurrentSkipListMap и когда использовать?</span><span class="qa2">▶</span></div><div class="qans">ConcurrentSkipListMap — concurrent аналог TreeMap. Сортированные ключи + thread-safe без блокировок (lock-free через CAS).<br><br>O(log n) для get/put/remove. Методы headMap(), tailMap(), subMap() тоже thread-safe.<div class="note">Используй когда нужна отсортированная concurrent Map. ConcurrentHashMap не сохраняет порядок ключей.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">5</span><span class="qt">List.of() vs Collections.unmodifiableList() — в чём разница?</span><span class="qa2">▶</span></div><div class="qans"><code>Collections.unmodifiableList(list)</code> — обёртка, запрещает изменения через неё. Но исходный list меняется → обёртка тоже меняется.<br><br><code>List.of()</code> (Java 9+) — полностью неизменяемый. Не допускает null. Компактное представление (нет оверхеда массива Object[]).<br><code>List.copyOf(list)</code> (Java 10+) — неизменяемая копия.<div class="warn">unmodifiableList не является truly immutable! Если нужна настоящая иммутабельность → List.of() или List.copyOf().</div></div></li>
+
+</ul></div></div>
+</section>
+
+<!-- МНОГОПОТОЧНОСТЬ -->
+<section id="concurrency">
+<div class="sh"><div class="si2" style="background:rgba(239,68,68,.15)">⚡</div><div><div class="st">Многопоточность</div><div class="ss">Thread, synchronized, locks, volatile, ExecutorService</div></div></div>
+
+<div class="ac cr" onclick="toggleCard(this)">
+<div class="ah"><div class="astr sr"></div><div class="al"><div class="atag tr">Threads</div><div class="ati">Потоки, состояния, синхронизация, deadlock</div><div class="am">Thread lifecycle, synchronized, wait/notify, race condition, volatile</div></div><span class="acnt">10 вопросов</span><span class="ach">▼</span></div>
+<div class="ab"><ul class="ql">
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nr">1</span><span class="qt">extends Thread vs implements Runnable — что предпочтительнее?</span><span class="qa2">▶</span></div><div class="qans"><pre>// 1. extends Thread — расточительно
+class MyThread extends Thread {
+  public void run() { doWork(); }
+}
+new MyThread().start();
+
+// 2. implements Runnable — предпочтительно
+class MyTask implements Runnable {
+  public void run() { doWork(); }
+}
+new Thread(new MyTask()).start();
+
+// 3. Lambda (Java 8+) — лаконично
+new Thread(() -&gt; doWork()).start();
+
+// 4. Callable — если нужен результат
+Callable&lt;Integer&gt; task = () -&gt; compute();
+Future&lt;Integer&gt; future = executor.submit(task);</pre><div class="good">Runnable лучше: не тратишь единственный extends, задача отделена от механизма выполнения, можно передавать в ExecutorService.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nr">2</span><span class="qt">Состояния потока — все 6 состояний и переходы между ними.</span><span class="qa2">▶</span></div><div class="qans"><pre>NEW ──start()──▶ RUNNABLE
+                    │
+              ┌─────┼──────────┐
+              ↓     ↓          ↓
+           BLOCKED WAITING  TIMED_WAITING
+              │     │          │
+              └─────┴──────────┘
+                    │
+                    ↓
+                TERMINATED</pre><span class="h">RUNNABLE</span> — выполняется или ждёт CPU (Ready + Running в одном состоянии).<br><span class="h">BLOCKED</span> — ждёт захвата монитора synchronized.<br><span class="h">WAITING</span> — wait(), join(), LockSupport.park() без таймаута.<br><span class="h">TIMED_WAITING</span> — sleep(n), wait(n), join(n), LockSupport.parkNanos().<br><span class="h">TERMINATED</span> — run() завершился.</div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nr">3</span><span class="qt">Что такое synchronized? На каком уровне работает?</span><span class="qa2">▶</span></div><div class="qans">Захватывает intrinsic lock (монитор) объекта. Только один поток может держать монитор одного объекта.<pre>// Метод экземпляра → монитор this
+public synchronized void method() { ... }
+
+// Статический метод → монитор Class объекта
+public static synchronized void staticMethod() { ... }
+
+// Блок → монитор явного объекта (гибче!)
+synchronized(lock) { ... }
+synchronized(this) { ... }
+synchronized(MyClass.class) { ... }</pre><div class="note">synchronized — reentrant: один поток может войти в несколько synchronized блоков на одном мониторе без deadlock.</div><div class="warn">synchronized на методе = synchronized(this) = блокирует ВЕСЬ объект. Лучше использовать блоки с отдельным объектом-локом для лучшей гранулярности.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nr">4</span><span class="qt">Что такое deadlock? Условия возникновения и способы избежать.</span><span class="qa2">▶</span></div><div class="qans"><span class="h">4 условия Coffman для deadlock:</span> взаимоисключение, удержание и ожидание, нет принудительного изъятия, циклическое ожидание.<pre>// Классический deadlock
+Thread A: synchronized(lock1) { synchronized(lock2) { ... } }
+Thread B: synchronized(lock2) { synchronized(lock1) { ... } }
+// A держит lock1, ждёт lock2; B держит lock2, ждёт lock1</pre><span class="h">Как избежать:</span><ul><li>Захватывать локи в одном порядке (нарушает циклическое ожидание)</li><li><code>tryLock(timeout)</code> — с таймаутом, при неудаче отпускать всё</li><li>Минимизировать число одновременных локов</li><li>Использовать высокоуровневые конструкции (ConcurrentHashMap вместо synchronized Map)</li></ul><div class="warn">Диагностика: jstack &lt;pid&gt; или VisualVM показывает потоки в BLOCKED + «Found one Java-level deadlock».</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nr">5</span><span class="qt">Что такое race condition? Пример и решения.</span><span class="qa2">▶</span></div><div class="qans">Race condition — результат зависит от порядка выполнения потоков.<pre>// i++ — НЕ атомарна! Три операции: read, increment, write
+// Thread 1 читает i=5, Thread 2 читает i=5
+// Оба записывают 6 → результат 6 вместо 7!
+private int counter = 0;
+public void increment() { counter++; } // UNSAFE!</pre><span class="h">Решения:</span><ul><li><code>AtomicInteger</code> — CAS, lock-free</li><li><code>synchronized</code> — простой но медленнее</li><li><code>LongAdder</code> — быстрее AtomicLong при высокой конкурентности (Java 8)</li></ul><pre>private final AtomicInteger counter = new AtomicInteger(0);
+public void increment() { counter.incrementAndGet(); }</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nr">6</span><span class="qt">wait(), notify(), notifyAll() — правила использования.</span><span class="qa2">▶</span></div><div class="qans">Вызывать только внутри synchronized блока на том же мониторе!<pre>// Паттерн Producer-Consumer
+// Consumer:
+synchronized(buffer) {
+  while (buffer.isEmpty()) { // WHILE, не if! (spurious wakeups!)
+    buffer.wait();           // отпускает монитор и ждёт
+  }
+  process(buffer.take());
+}
+// Producer:
+synchronized(buffer) {
+  buffer.add(item);
+  buffer.notifyAll(); // notifyAll безопаснее notify
+}</pre><div class="warn">Всегда используй while, не if: spurious wakeups — поток может проснуться без notify(). notifyAll() безопаснее notify() — notify() будит только один случайный поток.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nr">7</span><span class="qt">volatile — что гарантирует и что нет? Happens-before.</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Гарантирует:</span><ul><li>Видимость: чтение из main memory, не из CPU кеша (L1/L2)</li><li>Happens-before: запись volatile → видна всем последующим чтениям</li><li>Запрет переупорядочивания (instruction reordering) вокруг volatile операций</li></ul><span class="h">НЕ гарантирует атомарность составных операций:</span><br><code>volatile int i; i++;</code> — три операции: read, +1, write — всё ещё race condition!<pre>// Корректные применения:
+volatile boolean shutdown = false; // флаг остановки
+volatile Config config = loadConfig(); // одиночная публикация объекта
+
+// Double-checked locking (Java 5+):
+private volatile Singleton instance;
+if (instance == null) {
+  synchronized(this) {
+    if (instance == null) instance = new Singleton();
+  }
+}</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nr">8</span><span class="qt">ReentrantLock vs synchronized — когда что выбрать?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">ReentrantLock дополнительно умеет:</span><ul><li><code>tryLock()</code> — попытка захватить без ожидания</li><li><code>tryLock(time, unit)</code> — с таймаутом</li><li><code>lockInterruptibly()</code> — прерываемое ожидание</li><li>Несколько условий: <code>Condition cond = lock.newCondition()</code></li><li>Честная блокировка: <code>new ReentrantLock(true)</code></li><li>Информация: getQueueLength(), isLocked()</li></ul><pre>ReentrantLock lock = new ReentrantLock();
+lock.lock();
+try {
+  // критическая секция
+} finally {
+  lock.unlock(); // ОБЯЗАТЕЛЬНО в finally!
+}</pre><div class="warn">synchronized автоматически снимает лок при выходе из блока. ReentrantLock — нет! Всегда unlock() в finally.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nr">9</span><span class="qt">ReadWriteLock и StampedLock — когда применять?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">ReentrantReadWriteLock</span> — много читателей или один писатель.<pre>ReadWriteLock rwLock = new ReentrantReadWriteLock();
+// Много потоков могут читать одновременно
+rwLock.readLock().lock();
+try { return data; } finally { rwLock.readLock().unlock(); }
+// Только один поток пишет
+rwLock.writeLock().lock();
+try { data = newData; } finally { rwLock.writeLock().unlock(); }</pre><span class="h">StampedLock (Java 8+)</span> — добавляет optimistic read без блокировки:<pre>StampedLock sl = new StampedLock();
+long stamp = sl.tryOptimisticRead(); // без блокировки!
+double x = this.x, y = this.y;
+if (!sl.validate(stamp)) { // был ли write?
+  stamp = sl.readLock(); // тогда полный read lock
+  try { x = this.x; y = this.y; } finally { sl.unlockRead(stamp); }
+}</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nr">10</span><span class="qt">Что такое livelock и starvation? Чем отличаются от deadlock?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Deadlock</span> — потоки заблокированы навсегда, ничего не делают.<br><br><span class="h">Livelock</span> — потоки активны, не заблокированы, но не могут продвинуться (постоянно «уступают» друг другу). Как два человека в коридоре, пытающиеся разойтись.<br><br><span class="h">Starvation (голодание)</span> — один поток не получает ресурсов из-за того что другие (приоритетные) постоянно их захватывают. Fair lock решает проблему.<div class="note">В реальных системах starvation часто незаметна — поток работает, но очень медленно из-за постоянных ожиданий.</div></div></li>
+
+</ul></div></div>
+
+<div class="ac cr" onclick="toggleCard(this)">
+<div class="ah"><div class="astr sr"></div><div class="al"><div class="atag tr">ExecutorService</div><div class="ati">Пулы потоков, Future, CompletableFuture, ThreadLocal, CAS</div><div class="am">ThreadPoolExecutor, Callable, AtomicInteger, async программирование</div></div><span class="acnt">9 вопросов</span><span class="ach">▼</span></div>
+<div class="ab"><ul class="ql">
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nr">1</span><span class="qt">Зачем ExecutorService? Что плохого в постоянном new Thread()?</span><span class="qa2">▶</span></div><div class="qans">Создание потока — дорого: ~512KB стека, системный вызов, инициализация JVM структур. При 1000 req/sec → 1000 потоков → OutOfMemoryError или деградация.<br><br><span class="h">ExecutorService решает:</span><ul><li>Переиспользование потоков (пул)</li><li>Контроль максимального числа потоков</li><li>Очередь задач (буферизация пиков)</li><li>Graceful shutdown</li><li>Мониторинг и метрики</li><li>Возврат результата через Future</li></ul></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nr">2</span><span class="qt">Виды пулов из Executors factory — когда что использовать?</span><span class="qa2">▶</span></div><div class="qans"><code>newFixedThreadPool(n)</code> — фиксированный. CPU-bound: n = кол-во ядер. IO-bound: n = ядра × (1 + waitTime/cpuTime).<br><code>newCachedThreadPool()</code> — растёт по нужде, кешируют 60 сек. IO-bound.<br><code>newSingleThreadExecutor()</code> — один поток, задачи последовательно. Удобно для упорядочивания.<br><code>newScheduledThreadPool(n)</code> — по расписанию.<br><code>newVirtualThreadPerTaskExecutor()</code> — Java 21, virtual threads (Project Loom).<div class="warn">В продакшне создавай ThreadPoolExecutor напрямую! newCachedThreadPool может создать неограниченно много потоков. newFixedThreadPool использует unbounded queue — может накопить миллионы задач в памяти!</div><pre>ExecutorService pool = new ThreadPoolExecutor(
+  corePoolSize, maxPoolSize, keepAlive, TimeUnit.SECONDS,
+  new ArrayBlockingQueue&lt;&gt;(queueCapacity), // bounded!
+  new ThreadPoolExecutor.CallerRunsPolicy() // backpressure
+);</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nr">3</span><span class="qt">execute() vs submit() — разница?</span><span class="qa2">▶</span></div><div class="qans"><code>execute(Runnable)</code> — запустить и забыть. Нет результата. Исключение убивает поток (UncaughtExceptionHandler).<br><code>submit(Runnable/Callable)</code> — возвращает Future&lt;T&gt;. Исключение хранится в Future, бросается при get().<pre>// execute — исключение теряется если нет UncaughtExceptionHandler
+executor.execute(() -&gt; { throw new RuntimeException(); }); // тихо падает
+
+// submit — исключение хранится в Future
+Future&lt;?&gt; f = executor.submit(() -&gt; { throw new RuntimeException(); });
+try { f.get(); }
+catch (ExecutionException e) { e.getCause(); } // вот оно!</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nr">4</span><span class="qt">shutdown() vs shutdownNow() — как правильно остановить пул?</span><span class="qa2">▶</span></div><div class="qans"><code>shutdown()</code> — мягкая: не принимает новые задачи, ждёт завершения текущих.<br><code>shutdownNow()</code> — жёсткая: interrupt() всем потокам, возвращает List незапущенных задач.<pre>executor.shutdown();
+try {
+  // Ждём 60 секунд
+  if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+    List&lt;Runnable&gt; pending = executor.shutdownNow();
+    log.warn("{} tasks were not executed", pending.size());
+    // Ждём ещё раз после shutdownNow
+    if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+      log.error("Pool did not terminate");
+    }
+  }
+} catch (InterruptedException e) {
+  executor.shutdownNow();
+  Thread.currentThread().interrupt(); // восстанавливаем флаг!
+}</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nr">5</span><span class="qt">CompletableFuture — что умеет? Примеры методов.</span><span class="qa2">▶</span></div><div class="qans"><pre>// Цепочки (pipeline)
+CompletableFuture.supplyAsync(() -&gt; fetchUser(id))
+  .thenApply(user -&gt; enrich(user))       // синхронный transform
+  .thenCompose(user -&gt; saveAsync(user))  // async flatten
+  .thenAccept(user -&gt; notify(user))      // терминальный
+  .exceptionally(e -&gt; { log(e); return null; }); // обработка ошибок
+
+// Параллельные запросы
+CompletableFuture&lt;User&gt; userF = fetchUserAsync(id);
+CompletableFuture&lt;Order&gt; orderF = fetchOrderAsync(id);
+CompletableFuture.allOf(userF, orderF)
+  .thenRun(() -&gt; combine(userF.join(), orderF.join()));
+
+// Гонка — первый ответивший
+CompletableFuture.anyOf(server1, server2, server3)
+  .thenAccept(result -&gt; useResult(result));</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nr">6</span><span class="qt">ThreadLocal — как работает и опасность утечек памяти?</span><span class="qa2">▶</span></div><div class="qans">У каждого потока своё значение ThreadLocal. Thread хранит ThreadLocalMap внутри себя.<pre>// Пример: контекст запроса
+public class RequestContext {
+  private static final ThreadLocal&lt;String&gt; USER_ID = new ThreadLocal&lt;&gt;();
+  public static void set(String id) { USER_ID.set(id); }
+  public static String get() { return USER_ID.get(); }
+  public static void clear() { USER_ID.remove(); } // ВАЖНО!
+}
+
+// В фильтре:
+RequestContext.set(extractUserId(request));
+try { chain.doFilter(request, response); }
+finally { RequestContext.clear(); } // ВСЕГДА в finally!</pre><div class="warn">Утечка памяти: в пулах потоков поток живёт вечно → ThreadLocal живёт вечно → объекты не собираются GC. Всегда ThreadLocal.remove() в finally!</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nr">7</span><span class="qt">AtomicInteger и CAS — как работает под капотом?</span><span class="qa2">▶</span></div><div class="qans">CAS (Compare-And-Swap) — атомарная инструкция процессора: «если текущее == ожидаемое → заменить на новое».<pre>AtomicInteger ai = new AtomicInteger(5);
+ai.incrementAndGet();           // CAS loop: while(!cas(old, old+1))
+ai.compareAndSet(5, 10);        // если 5 → поставить 10
+ai.getAndUpdate(x -&gt; x * 2);   // любое атомарное преобразование
+ai.accumulateAndGet(3, Integer::sum); // 5 + 3 = 8</pre><div class="note">При высокой конкурентности на одном значении — CAS loop (spin) тратит CPU. LongAdder распределяет обновления по ячейкам → меньше contention → быстрее при высокой нагрузке.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nr">8</span><span class="qt">CountDownLatch, CyclicBarrier, Semaphore, Phaser — что для чего?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">CountDownLatch</span> — ждать пока N событий не произойдут. Одноразовый.<pre>CountDownLatch latch = new CountDownLatch(3);
+// 3 worker потока вызывают latch.countDown()
+latch.await(); // главный поток ждёт трёх</pre><span class="h">CyclicBarrier</span> — N потоков ждут друг друга в точке. Многоразовый.<br><span class="h">Semaphore</span> — ограничение числа одновременных обращений (пул соединений, rate limiting).<pre>Semaphore sem = new Semaphore(10); // max 10 одновременно
+sem.acquire(); try { doWork(); } finally { sem.release(); }</pre><span class="h">Phaser</span> — гибкий заменитель CyclicBarrier, динамическое число участников.</div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nr">9</span><span class="qt">Что такое Virtual Threads (Java 21, Project Loom)?</span><span class="qa2">▶</span></div><div class="qans">Virtual threads — лёгкие потоки управляемые JVM, а не OS. Можно создавать миллионы.<pre>// Создание
+Thread.ofVirtual().start(() -&gt; doWork());
+// Через ExecutorService
+try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+  executor.submit(() -&gt; handleRequest());
+}</pre><div class="good">Идеально для IO-bound задач: поток блокируется на IO → JVM монтирует его на другой carrier thread → не тратит OS thread. Революция для серверных приложений — простой синхронный код с масштабируемостью как у async!</div><div class="warn">Не подходит для CPU-bound задач. Synchronized блоки могут «прикреплять» (pin) виртуальный поток к carrier thread — используй ReentrantLock.</div></div></li>
+
+</ul></div></div>
+</section>
+
+<!-- JVM -->
+<section id="jvm">
+<div class="sh"><div class="si2" style="background:rgba(168,85,247,.15)">🧠</div><div><div class="st">JVM</div><div class="ss">Память, GC, classloading, профилирование</div></div></div>
+
+<div class="ac cp" onclick="toggleCard(this)">
+<div class="ah"><div class="astr sp2"></div><div class="al"><div class="atag tp">Memory &amp; GC</div><div class="ati">Структура памяти JVM, сборщики мусора, профилирование</div><div class="am">Heap, Stack, Metaspace, Young/Old Gen, G1/ZGC, утечки памяти</div></div><span class="acnt">9 вопросов</span><span class="ach">▼</span></div>
+<div class="ab"><ul class="ql">
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn np">1</span><span class="qt">Расскажи про все области памяти JVM. Что где хранится?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Heap</span> — объекты и массивы. Разделяется потоками. Young Gen (Eden + S0 + S1) + Old Gen. GC работает здесь.<br><span class="h">Stack</span> — фреймы вызовов, локальные переменные примитивов и ссылок. Свой для каждого потока. StackOverflowError = бесконечная рекурсия.<br><span class="h">Metaspace</span> (Java 8+, вместо PermGen) — метаданные классов: методы, поля, байткод, константный пул. Физическая память, не Heap. Растёт динамически. OutOfMemoryError: Metaspace при утечках classloader'ов.<br><span class="h">Code Cache</span> — JIT-скомпилированный нативный код.<br><span class="h">PC Register</span> — адрес текущей JVM-инструкции (у каждого потока свой).<br><span class="h">Native Method Stack</span> — для JNI native методов.</div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn np">2</span><span class="qt">Young и Old Generation — как работает, зачем поколения?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Гипотеза слабых поколений:</span> большинство объектов умирают молодыми.<br><br><span class="h">Eden</span> — новые объекты. Быстрое выделение памяти (bump-the-pointer). Minor GC: очищает Eden + один Survivor.<br><span class="h">Survivor (S0, S1)</span> — объекты пережившие GC. Переключаются при каждом Minor GC.<br><span class="h">Old Gen (Tenured)</span> — объекты пережившие N Minor GC (tenuring threshold, ~8-15). Major/Full GC — дорого, stop-the-world.<pre>// Флаги:
+-Xmx512m          // макс heap
+-Xms512m          // начальный heap (=Xmx — избежать resize)
+-Xmn256m          // размер Young Gen
+-XX:SurvivorRatio=8 // Eden:Survivor = 8:1</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn np">3</span><span class="qt">Как GC определяет что объект — мусор? GC roots.</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Mark and Sweep:</span><br>1. Mark — начиная от GC roots, помечаем все достижимые объекты<br>2. Sweep — удаляем непомеченные<br>3. Compact (опционально) — сдвигаем оставшиеся для устранения фрагментации<br><br><span class="h">GC Roots:</span><ul><li>Локальные переменные и параметры всех активных потоков (стек)</li><li>static поля классов</li><li>JNI references</li><li>Синхронизирующие объекты (мониторы)</li></ul><div class="note">Циклические ссылки (A→B→A) не проблема — они не достижимы из GC roots → оба собираются.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn np">4</span><span class="qt">G1 GC vs ZGC vs Shenandoah — когда что выбрать?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">G1 GC (Java 9+ default)</span> — делит heap на регионы (~2048 шт). Предсказуемые паузы (MaxGCPauseMillis). Stop-the-world есть, но короткое. Heap 4-32 GB. Хорош для большинства приложений.<br><br><span class="h">ZGC (Java 15+ production)</span> — паузы &lt;1ms независимо от размера heap. До терабайт heap. Конкурентное сжатие. Для latency-critical: торговля, игры, real-time.<br><br><span class="h">Shenandoah</span> — похож на ZGC, паузы ~1-10ms. Меньше накладных расходов на небольших heap.<pre>// Включить:
+-XX:+UseG1GC            // G1 (обычно дефолт)
+-XX:+UseZGC             // ZGC
+-XX:+UseShenandoahGC    // Shenandoah</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn np">5</span><span class="qt">Как найти утечку памяти? Инструменты и алгоритм.</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Симптомы:</span> OutOfMemoryError, постепенный рост heap, частые Full GC с малым эффектом, деградация производительности со временем.<br><br><span class="h">Алгоритм:</span><br>1. Включи флаг: <code>-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/heap.hprof</code><br>2. Или снять вручную: <code>jmap -dump:format=b,file=heap.hprof &lt;pid&gt;</code><br>3. Открыть в Eclipse MAT → «Leak Suspects Report»<br>4. Искать: большие retained heap объекты, неожиданное число экземпляров<br><br><span class="h">Типичные причины:</span><ul><li>static коллекции/кеши без ограничения размера</li><li>Слушатели (listeners) не снятые с регистрации</li><li>ThreadLocal без remove()</li><li>classloader утечки в hot-deploy</li><li>Объекты в сессиях HTTP</li></ul></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn np">6</span><span class="qt">Что такое JIT компиляция? Как JVM оптимизирует код?</span><span class="qa2">▶</span></div><div class="qans">JVM начинает с интерпретации байткода. Горячий код (часто вызываемый) JIT-компилируется в нативный.<br><br><span class="h">Два уровня:</span><br>C1 (Client Compiler) — быстрая компиляция, базовые оптимизации. Для кода вызванного ~1000 раз.<br>C2 (Server Compiler) — медленная компиляция, агрессивные оптимизации. Для ~10000+ вызовов.<br><br><span class="h">Оптимизации JIT:</span><ul><li>Inlining — подстановка тела метода (убирает call overhead)</li><li>Dead code elimination</li><li>Loop unrolling</li><li>Escape analysis → stack allocation вместо heap</li><li>Speculative optimizations — с деоптимизацией если неправильно</li></ul></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn np">7</span><span class="qt">Что такое ClassLoader? Иерархия и принцип работы.</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Иерархия:</span><br>Bootstrap ClassLoader (rt.jar / java.base) → Extension ClassLoader (ext/*.jar) → Application ClassLoader (classpath)<br><br><span class="h">Parent Delegation Model:</span> загрузчик сначала просит родителя загрузить класс. Только если родитель не нашёл — загружает сам. Гарантирует что java.lang.String всегда из bootstrap.<pre>// Свой ClassLoader (плагины, hot-reload):
+public class PluginClassLoader extends URLClassLoader {
+  public PluginClassLoader(URL[] urls) {
+    super(urls, null); // null parent = без parent delegation
+  }
+}</pre><div class="note">Утечки ClassLoader — распространённая проблема в серверах приложений. Если загруженный класс держит ссылку на ClassLoader — весь CL и все классы не собираются.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn np">8</span><span class="qt">Java Flight Recorder и async-profiler — как использовать?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">JFR (Java Flight Recorder)</span> — встроенный профайлер JVM. Минимальный overhead (~1%).<pre># Включить на старте
+java -XX:StartFlightRecording=duration=60s,filename=app.jfr -jar app.jar
+# Или подключиться к работающему:
+jcmd &lt;pid&gt; JFR.start duration=60s filename=app.jfr
+# Открыть: JDK Mission Control (jmc)</pre><span class="h">async-profiler</span> — CPU + allocation + lock профилирование без safepoints bias:<pre>./profiler.sh -d 30 -f flamegraph.html &lt;pid&gt;</pre><div class="good">Flamegraph — ширина = процент CPU времени. Ищи широкие «плато» — это горячие места. async-profiler точнее JFR для CPU профилирования.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn np">9</span><span class="qt">Что такое GC tuning? Какие параметры важны?</span><span class="qa2">▶</span></div><div class="qans"><pre># Основные флаги G1:
+-XX:+UseG1GC
+-XX:MaxGCPauseMillis=200      # целевая пауза (мс)
+-XX:G1HeapRegionSize=4m       # размер региона (1-32 MB)
+-XX:InitiatingHeapOccupancyPercent=45  # порог concurrent GC
+-XX:G1ReservePercent=10       # резерв для evacuation
+
+# Диагностика GC:
+-Xlog:gc*:file=gc.log:time,uptime,level,tags
+-XX:+PrintGCDetails (Java 8)
+
+# Важные метрики для мониторинга:
+# - GC pause duration (p99)
+# - GC throughput (% времени не в GC)
+# - Allocation rate (MB/s)
+# - Promotion rate (Eden → Old)</pre></div></li>
+
+</ul></div></div>
+</section>
+
+<!-- SPRING -->
+<section id="spring">
+<div class="sh"><div class="si2" style="background:rgba(34,197,94,.15)">🌱</div><div><div class="st">Spring Framework</div><div class="ss">IoC, DI, Bean, MVC, Boot, AOP, Transactions</div></div></div>
+
+<div class="ac cg" onclick="toggleCard(this)">
+<div class="ah"><div class="astr sg"></div><div class="al"><div class="atag tg">Spring Core</div><div class="ati">IoC, DI, Bean lifecycle, AOP, Transactions</div><div class="am">ApplicationContext, scopes, @Autowired, @Transactional, проксирование</div></div><span class="acnt">11 вопросов</span><span class="ach">▼</span></div>
+<div class="ab"><ul class="ql">
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ng">1</span><span class="qt">Что такое IoC (Inversion of Control)? Как Spring реализует?</span><span class="qa2">▶</span></div><div class="qans">IoC — принцип: объект не создаёт свои зависимости сам, а получает их извне.<br><br>Spring реализует IoC через DI (Dependency Injection): контейнер (ApplicationContext) создаёт объекты и связывает их.<pre>// Без IoC — жёсткая связь
+class OrderService {
+  PaymentService payment = new StripePaymentService(); // нельзя заменить
+}
+
+// С Spring IoC — слабая связь
+@Service
+class OrderService {
+  private final PaymentService payment; // интерфейс!
+  OrderService(PaymentService payment) { this.payment = payment; }
+}
+// Spring подставит нужную реализацию PaymentService</pre><div class="good">Преимущество: легко менять реализации, легко тестировать (моки), меньше связанность.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ng">2</span><span class="qt">Constructor vs Field vs Setter injection — что рекомендуется?</span><span class="qa2">▶</span></div><div class="qans"><pre>// 1. Constructor injection — РЕКОМЕНДУЕТСЯ
+@Service
+public class OrderService {
+  private final PaymentService payment; // final!
+  private final InventoryService inventory;
+  // Spring 4.3+: @Autowired не нужен если конструктор один
+  public OrderService(PaymentService p, InventoryService i) {
+    this.payment = p; this.inventory = i;
+  }
+}
+
+// 2. Field injection — удобно но плохо
+@Autowired private PaymentService payment; // нельзя final, плохо для тестов
+
+// 3. Setter injection — для опциональных зависимостей
+@Autowired(required = false)
+public void setMetrics(MetricsService metrics) { ... }</pre><div class="good">Constructor injection лучше: final поля, невозможны circular deps сюрпризы, легко тестировать без Spring, явные зависимости.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ng">3</span><span class="qt">Spring Bean scopes — все виды и когда использовать?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">singleton</span> (default) — один экземпляр на ApplicationContext. Stateless бины, сервисы, репозитории.<br><span class="h">prototype</span> — новый экземпляр при каждом getBean(). Stateful объекты, command объекты.<br><span class="h">request</span> — один на HTTP запрос. Данные запроса, security context.<br><span class="h">session</span> — один на HTTP сессию. Данные сессии пользователя.<br><span class="h">application</span> — один на ServletContext.<br><span class="h">websocket</span> — один на WebSocket сессию.<div class="warn">Инжектировать prototype в singleton через @Autowired не работает — получишь один экземпляр на всегда! Нужно: @Lookup метод или ObjectProvider&lt;T&gt; или ApplicationContext.getBean().</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ng">4</span><span class="qt">@Component, @Service, @Repository, @Controller — разница?</span><span class="qa2">▶</span></div><div class="qans">Все — специализации @Component, включают бин в контекст при @ComponentScan.<br><br><span class="h">Дополнительная семантика:</span><br><code>@Repository</code> — перехватывает SQL исключения и оборачивает в Spring DataAccessException иерархию.<br><code>@Controller</code> — Spring MVC, обрабатывает HTTP запросы.<br><code>@RestController</code> = @Controller + @ResponseBody.<br><code>@Service</code> — семантика бизнес-логики (пока без доп. поведения, но может измениться).<div class="note">Хорошая практика: использовать правильные аннотации — код самодокументируется, инструменты (IDE, AOP) могут добавлять поведение.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ng">5</span><span class="qt">Жизненный цикл Spring Bean — пошагово.</span><span class="qa2">▶</span></div><div class="qans">1. Создание экземпляра (конструктор)<br>2. Внедрение зависимостей (@Autowired поля/методы)<br>3. Обработка BeanPostProcessor.postProcessBeforeInitialization()<br>4. @PostConstruct / afterPropertiesSet() / init-method<br>5. BeanPostProcessor.postProcessAfterInitialization() → здесь создаются AOP прокси!<br>6. Бин готов к использованию<br>7. При закрытии контекста: @PreDestroy / destroy() / destroy-method<pre>@Component
+public class MyService {
+  @PostConstruct void init() { /* инициализация после DI */ }
+  @PreDestroy void cleanup() { /* освобождение ресурсов */ }
+}</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ng">6</span><span class="qt">Как Spring разрешает конфликт между несколькими бинами одного типа?</span><span class="qa2">▶</span></div><div class="qans"><pre>// Несколько реализаций PaymentService
+@Service("stripe") class StripePayment implements PaymentService {}
+@Service("paypal") class PayPalPayment implements PaymentService {}
+
+// Варианты разрешения:
+// 1. @Qualifier
+@Autowired @Qualifier("stripe") private PaymentService payment;
+
+// 2. @Primary — дефолтный бин
+@Primary @Service class StripePayment implements PaymentService {}
+
+// 3. Имя параметра совпадает с именем бина
+public OrderService(PaymentService stripe) { ... }
+
+// 4. Все сразу
+@Autowired List&lt;PaymentService&gt; allPayments;
+@Autowired Map&lt;String, PaymentService&gt; paymentsByName;</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ng">7</span><span class="qt">Что такое AOP? Как работает @Transactional под капотом?</span><span class="qa2">▶</span></div><div class="qans">AOP — вынос сквозной логики (транзакции, логирование, security, кеширование) в аспекты.<br><br>@Transactional работает через AOP прокси:<pre>// Spring создаёт прокси вместо реального бина:
+class OrderServiceProxy extends OrderService {
+  @Override void placeOrder(Order order) {
+    TransactionStatus tx = txManager.getTransaction(txDef); // BEGIN
+    try {
+      super.placeOrder(order); // реальный код
+      txManager.commit(tx);    // COMMIT
+    } catch (RuntimeException e) {
+      txManager.rollback(tx);  // ROLLBACK
+      throw e;
+    }
+  }
+}</pre><div class="warn">Самовызов (this.method()) — обходит прокси → @Transactional не работает! Инжектируй себя через @Autowired или ApplicationContext, или выноси метод в другой бин.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ng">8</span><span class="qt">@Transactional атрибуты — propagation, isolation, rollbackFor.</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Propagation:</span><br><code>REQUIRED</code> (default) — использует существующую или создаёт новую.<br><code>REQUIRES_NEW</code> — всегда новая транзакция, приостанавливает текущую.<br><code>SUPPORTS</code> — если есть — присоединяется, нет — без транзакции.<br><code>NOT_SUPPORTED</code> — всегда без транзакции.<br><code>MANDATORY</code> — обязательно должна быть существующая.<br><code>NEVER</code> — без транзакции, исключение если есть.<pre>@Transactional(
+  propagation = Propagation.REQUIRED,
+  isolation = Isolation.READ_COMMITTED,
+  timeout = 30,
+  readOnly = true,            // оптимизация для чтений
+  rollbackFor = {Exception.class}, // по умолчанию только RuntimeException!
+  noRollbackFor = {NotFoundException.class}
+)</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ng">9</span><span class="qt">Spring Boot — что делает автоматически? @SpringBootApplication.</span><span class="qa2">▶</span></div><div class="qans"><code>@SpringBootApplication</code> = <code>@Configuration</code> + <code>@EnableAutoConfiguration</code> + <code>@ComponentScan</code>.<br><br><span class="h">Auto-configuration:</span> при наличии класса в classpath — создаёт нужные бины. Пример: нашёл spring-data-jpa + DataSource → автоматически создаёт EntityManagerFactory, TransactionManager, все Repository.<br><br><span class="h">Starters</span> — наборы зависимостей. spring-boot-starter-web включает Spring MVC + Tomcat + Jackson.<pre># application.properties — конфигурация без XML/Java
+spring.datasource.url=jdbc:postgresql://localhost/mydb
+spring.jpa.show-sql=true
+server.port=8080</pre><div class="note">Посмотреть что создано: актуатор /actuator/beans показывает все бины. Или запусти с --debug для auto-configuration report.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ng">10</span><span class="qt">Как работает DispatcherServlet в Spring MVC?</span><span class="qa2">▶</span></div><div class="qans">Front Controller паттерн: все HTTP запросы проходят через единый DispatcherServlet.<pre>Запрос
+  → DispatcherServlet
+  → HandlerMapping → находит нужный @Controller метод
+  → HandlerAdapter → вызывает метод контроллера
+  → @Controller метод → возвращает ModelAndView или @ResponseBody
+  → ViewResolver (для MVC) или HttpMessageConverter (для REST)
+  → Ответ клиенту</pre><div class="note">В Spring Boot DispatcherServlet регистрируется автоматически. Embedded Tomcat/Netty запускается в том же процессе.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ng">11</span><span class="qt">Что такое @Conditional и @Profile в Spring Boot?</span><span class="qa2">▶</span></div><div class="qans"><code>@Profile</code> — активировать бин для определённого профиля (dev, test, prod).<pre>@Service @Profile("dev")
+class MockPaymentService implements PaymentService { ... }
+
+@Service @Profile("prod")
+class StripePaymentService implements PaymentService { ... }
+
+// Активация: spring.profiles.active=prod</pre><code>@ConditionalOnProperty</code>, <code>@ConditionalOnClass</code>, <code>@ConditionalOnMissingBean</code> — условное создание бинов:<pre>@Bean
+@ConditionalOnProperty(name="cache.enabled", havingValue="true")
+public CacheManager cacheManager() { ... }</pre></div></li>
+
+</ul></div></div>
+</section>
+
+<!-- HIBERNATE -->
+<section id="hibernate">
+<div class="sh"><div class="si2" style="background:rgba(34,197,94,.15)">🗄</div><div><div class="st">Hibernate &amp; JPA</div><div class="ss">Маппинг, кеши, N+1 проблема, транзакции</div></div></div>
+
+<div class="ac cg" onclick="toggleCard(this)">
+<div class="ah"><div class="astr sg"></div><div class="al"><div class="atag tg">Hibernate</div><div class="ati">Lazy/Eager, N+1, кеши, Entity lifecycle, JPQL</div><div class="am">блокировки, маппинг, Spring Data, оптимизация запросов</div></div><span class="acnt">10 вопросов</span><span class="ach">▼</span></div>
+<div class="ab"><ul class="ql">
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ng">1</span><span class="qt">LAZY vs EAGER загрузка — default значения и когда что использовать?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Defaults:</span><br>@ManyToOne, @OneToOne → EAGER (по умолчанию).<br>@OneToMany, @ManyToMany → LAZY (по умолчанию).<br><br><span class="h">EAGER</span> — коллекция загружается сразу с основной сущностью (JOIN или отдельный запрос).<br><span class="h">LAZY</span> — прокси-объект, коллекция загружается при первом обращении.<div class="warn">LazyInitializationException — обращение к lazy коллекции вне Hibernate Session.<br>Решения: @Transactional, JOIN FETCH в JPQL, @EntityGraph, Spring Data: @Transactional на репозитории.</div><div class="note">Рекомендация: используй LAZY везде + явные JOIN FETCH или @EntityGraph там где нужны данные. Избегай EAGER — он часто ведёт к нежелательным JOIN'ам.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ng">2</span><span class="qt">Проблема N+1 запросов — что это и как решить?</span><span class="qa2">▶</span></div><div class="qans">При загрузке N сущностей с lazy коллекцией: 1 запрос для списка + N запросов для каждой коллекции = N+1.<pre>// ПРОБЛЕМА: при 100 заказах = 101 запрос
+List&lt;Order&gt; orders = orderRepo.findAll();
+orders.forEach(o -&gt; o.getItems().size()); // N запросов!
+
+// РЕШЕНИЕ 1: JOIN FETCH в JPQL
+@Query("SELECT o FROM Order o JOIN FETCH o.items WHERE o.status = :status")
+List&lt;Order&gt; findWithItems(@Param("status") Status status);
+
+// РЕШЕНИЕ 2: @EntityGraph
+@EntityGraph(attributePaths = {"items", "items.product"})
+List&lt;Order&gt; findByStatus(Status status);
+
+// РЕШЕНИЕ 3: @BatchSize (загружает коллекции батчами)
+@OneToMany @BatchSize(size = 20)
+private List&lt;OrderItem&gt; items;</pre><div class="warn">Диагностика: spring.jpa.show-sql=true или datasource-proxy для подсчёта запросов. Производительность в N+1 деградирует нелинейно!</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ng">3</span><span class="qt">Кеш 1-го и 2-го уровня в Hibernate — как работают?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">L1 — Session (Persistence Context):</span> Включён всегда. Хранит сущности в рамках одной Session/транзакции. session.get(User.class, 1L) дважды → 1 SQL запрос.<br><br><span class="h">L2 — SessionFactory:</span> Разделяется между Sessions. Нужно включить явно (EhCache, Caffeine, Infinispan).<pre>@Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+public class Product { ... }
+
+// application.properties:
+spring.jpa.properties.hibernate.cache.use_second_level_cache=true
+spring.jpa.properties.hibernate.cache.region.factory_class=...CaffeineCacheRegionFactory</pre><div class="warn">L2 кеш и высококонкурентные записи = сложность управления инвалидацией. Используй осторожно. Хорошо для: справочники, конфигурации, редко меняющиеся данные.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ng">4</span><span class="qt">Состояния Entity в Hibernate — transient, persistent, detached, removed.</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Transient</span> — создан через new, нет в Session и в БД.<br><span class="h">Persistent (Managed)</span> — в Persistence Context. Изменения отслеживаются, auto-flush при commit.<br><span class="h">Detached</span> — был persistent, Session закрыта или evicted. Изменения не отслеживаются. merge() = возврат в managed.<br><span class="h">Removed</span> — помечен на удаление через remove(). Удалится при flush.<pre>User u = new User("John");  // Transient
+session.persist(u);          // → Persistent
+u.setName("Jane");           // автоматически UPDATE при flush!
+session.close();             // → Detached
+u.setName("Bob");            // изменение не отслеживается
+session.merge(u);            // → Persistent копия с новыми данными</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ng">5</span><span class="qt">Оптимистичная vs Пессимистичная блокировка — когда что?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Оптимистичная (Optimistic)</span> — нет блокировки БД. @Version поле — если версия изменилась при сохранении → OptimisticLockException. Хорошо при редких конфликтах.<pre>@Entity
+public class BankAccount {
+  @Version
+  private Integer version; // Hibernate инкрементирует автоматически
+}
+// При конфликте: Spring Data бросает ObjectOptimisticLockingFailureException</pre><span class="h">Пессимистичная (Pessimistic)</span> — блокируем строку в БД (SELECT ... FOR UPDATE). Гарантия эксклюзивного доступа. Хорошо при частых конфликтах, критичных операциях (снятие денег).<pre>@Lock(LockModeType.PESSIMISTIC_WRITE)
+Optional&lt;Account&gt; findById(Long id);</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ng">6</span><span class="qt">Разница между save(), persist(), merge(), saveOrUpdate()?</span><span class="qa2">▶</span></div><div class="qans"><code>persist()</code> (JPA) — transient → persistent. Только внутри транзакции. ID не гарантирован до flush.<br><code>save()</code> (Hibernate) — аналог persist но возвращает ID немедленно, работает вне транзакции (insert сразу).<br><code>merge()</code> (JPA) — копирует состояние detached → managed. Возвращает managed копию (не исходный объект!).<br><code>saveOrUpdate()</code> (Hibernate) — save если нет ID, update если есть.<pre>// ВАЖНО: merge возвращает новый managed объект!
+User detached = getDetachedUser();
+User managed = session.merge(detached); // managed — это другой объект!
+// detached остаётся detached, managed = тот с кем работать дальше</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ng">7</span><span class="qt">Как правильно маппить @OneToMany? Cascade и orphanRemoval.</span><span class="qa2">▶</span></div><div class="qans"><pre>@Entity
+public class Order {
+  @Id Long id;
+
+  @OneToMany(
+    mappedBy = "order",             // поле в OrderItem ссылающееся на Order
+    cascade = CascadeType.ALL,      // операции каскадируются на items
+    orphanRemoval = true,           // удалить item если убрать из коллекции
+    fetch = FetchType.LAZY
+  )
+  private List&lt;OrderItem&gt; items = new ArrayList&lt;&gt;();
+
+  // Helper методы для поддержания двусторонней связи:
+  public void addItem(OrderItem item) {
+    items.add(item);
+    item.setOrder(this); // ВАЖНО — устанавливаем обе стороны!
+  }
+}</pre><div class="warn">Всегда инициализируй коллекции: <code>= new ArrayList&lt;&gt;()</code>. Без этого NullPointerException при добавлении.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ng">8</span><span class="qt">JPQL vs Criteria API vs Native SQL — когда что?</span><span class="qa2">▶</span></div><div class="qans"><pre>// JPQL — по Entity классам, не таблицам
+@Query("SELECT u FROM User u WHERE u.email = :email AND u.active = true")
+Optional&lt;User&gt; findByEmail(@Param("email") String email);
+
+// Spring Data — автогенерация по имени метода
+Optional&lt;User&gt; findByEmailAndActiveTrue(String email);
+
+// Criteria API — динамические запросы
+CriteriaBuilder cb = em.getCriteriaBuilder();
+CriteriaQuery&lt;User&gt; cq = cb.createQuery(User.class);
+// ... сложно, но безопасно для динамических условий
+
+// Native SQL — когда нужна специфика БД
+@Query(value = "SELECT * FROM users WHERE ... LIMIT :limit", nativeQuery = true)
+List&lt;User&gt; findTopUsers(@Param("limit") int limit);</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ng">9</span><span class="qt">Что такое Projection в Spring Data? Зачем нужны DTO проекции?</span><span class="qa2">▶</span></div><div class="qans">Проекции — загрузка только нужных полей вместо полной Entity. Экономит память и трафик к БД.<pre>// Interface projection
+public interface UserSummary {
+  String getName();
+  String getEmail();
+  // только 2 поля, не вся Entity
+}
+List&lt;UserSummary&gt; findAllProjectedBy();
+
+// DTO projection
+public record UserDto(String name, String email) {}
+@Query("SELECT new com.app.dto.UserDto(u.name, u.email) FROM User u")
+List&lt;UserDto&gt; findAllAsDto();
+
+// Dynamic projections
+&lt;T&gt; List&lt;T&gt; findByCity(String city, Class&lt;T&gt; type);</pre><div class="good">DTO проекции избегают overhead Hibernate proxy и отслеживания изменений. Для read-only данных — значительно быстрее.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ng">10</span><span class="qt">Что такое Hibernate dirty checking? Как оптимизировать?</span><span class="qa2">▶</span></div><div class="qans">Hibernate сравнивает persistent объекты со снимком (snapshot) при flush — автоматически генерирует UPDATE для изменённых.<pre>@Transactional
+void updateUser(Long id) {
+  User user = userRepo.findById(id).orElseThrow();
+  user.setName("New Name"); // нет явного save()!
+  // При commit — Hibernate сам генерирует UPDATE users SET name=? WHERE id=?
+}</pre><div class="note">Проблема: при большом числе сущностей dirty checking дорого — сравнение каждого поля каждого объекта.<br>Оптимизации: @Immutable для read-only, @DynamicUpdate (только изменённые поля), @ReadOnly транзакции, проекции вместо Entity.</div></div></li>
+
+</ul></div></div>
+</section>
+
+<!-- SQL -->
+<section id="sql">
+<div class="sh"><div class="si2" style="background:rgba(245,158,11,.15)">🗃</div><div><div class="st">SQL &amp; Базы данных</div><div class="ss">ACID, транзакции, индексы, оконные функции</div></div></div>
+
+<div class="ac cy" onclick="toggleCard(this)">
+<div class="ah"><div class="astr sy"></div><div class="al"><div class="atag ty">SQL</div><div class="ati">Транзакции, ACID, индексы, JOIN, оптимизация</div><div class="am">уровни изоляции, блокировки, EXPLAIN, нормализация, окончные функции</div></div><span class="acnt">9 вопросов</span><span class="ach">▼</span></div>
+<div class="ab"><ul class="ql">
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">1</span><span class="qt">Что такое ACID? Объясни каждое свойство.</span><span class="qa2">▶</span></div><div class="qans"><span class="h">A — Atomicity (Атомарность)</span>: транзакция = атом. Либо всё, либо ничего. Нет частичных изменений.<br><span class="h">C — Consistency (Согласованность)</span>: БД переходит из одного корректного состояния в другое. Нарушение constraint → rollback.<br><span class="h">I — Isolation (Изолированность)</span>: параллельные транзакции не мешают друг другу (в идеале). Уровень изоляции определяет степень.<br><span class="h">D — Durability (Надёжность)</span>: после COMMIT — данные сохранены навсегда, даже при сбое. WAL (Write-Ahead Log) обеспечивает это.<div class="note">BASE (Basically Available, Soft state, Eventually consistent) — альтернатива ACID для NoSQL систем, жертвует Consistency ради производительности.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">2</span><span class="qt">4 уровня изоляции транзакций и их проблемы.</span><span class="qa2">▶</span></div><div class="qans"><span class="h">READ UNCOMMITTED</span> — видит незакоммиченные изменения. Dirty read. Самый быстрый, самый опасный.<br><span class="h">READ COMMITTED</span> — видит только закоммиченные. Non-repeatable read (одни и те же данные, разные чтения). Default: PostgreSQL, Oracle, SQL Server.<br><span class="h">REPEATABLE READ</span> — одинаковые данные в рамках транзакции. Phantom read (новые строки появляются). Default: MySQL InnoDB.<br><span class="h">SERIALIZABLE</span> — полная изоляция, как последовательное выполнение. Нет ни одной аномалии. Самый медленный.<pre>Аномалия         RU   RC   RR   SER
+Dirty Read        ✗    ✓    ✓    ✓
+Non-Repeatable    ✗    ✗    ✓    ✓
+Phantom Read      ✗    ✗    ✗    ✓  (MySQL RR частично защищает)</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">3</span><span class="qt">Что такое индекс? Как работает B-Tree?</span><span class="qa2">▶</span></div><div class="qans">Индекс — отдельная структура данных для быстрого поиска без полного сканирования таблицы.<br><br><span class="h">B-Tree (сбалансированное дерево)</span> — стандартный тип. O(log n) для поиска, диапазонов, сортировки. Узлы хранят ключи + указатели на строки.<br><span class="h">Hash</span> — O(1) для точного поиска. Не работает для диапазонов, LIKE, ORDER BY.<br><span class="h">GIN/GiST</span> (PostgreSQL) — полнотекстовый поиск, JSONB, массивы.<br><span class="h">Partial index</span> — индекс с условием WHERE.<pre>CREATE INDEX idx_user_email ON users(email);
+CREATE INDEX idx_active_users ON users(email) WHERE active = true; -- partial
+CREATE INDEX idx_city_age ON users(city, age); -- составной</pre><div class="warn">Индекс ускоряет SELECT но замедляет INSERT/UPDATE/DELETE. Не индексируй всё подряд!</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">4</span><span class="qt">Типы JOIN — INNER, LEFT, RIGHT, FULL, CROSS, SELF.</span><span class="qa2">▶</span></div><div class="qans"><span class="h">INNER JOIN</span> — только строки с совпадением в обеих таблицах.<br><span class="h">LEFT JOIN</span> — все из левой + совпадения из правой (NULL если нет). Самый частый.<br><span class="h">RIGHT JOIN</span> — все из правой + совпадения из левой. Редко используют (заменяют LEFT).<br><span class="h">FULL OUTER JOIN</span> — все строки из обеих, NULL где нет совпадения.<br><span class="h">CROSS JOIN</span> — декартово произведение: каждая × каждую. Без ON условия.<br><span class="h">SELF JOIN</span> — таблица сама с собой. Для иерархий (менеджер-сотрудник).<pre>-- Найти сотрудников и их менеджеров
+SELECT e.name, m.name AS manager
+FROM employees e
+LEFT JOIN employees m ON e.manager_id = m.id;</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">5</span><span class="qt">EXPLAIN ANALYZE — как читать план запроса?</span><span class="qa2">▶</span></div><div class="qans"><pre>EXPLAIN ANALYZE SELECT * FROM orders WHERE user_id = 123 AND status = 'ACTIVE';</pre><span class="h">На что смотреть:</span><ul><li><span class="h">Seq Scan</span> — полное сканирование таблицы. Плохо на больших таблицах.</li><li><span class="h">Index Scan</span> — используется индекс. Хорошо.</li><li><span class="h">Index Only Scan</span> — все данные из индекса, таблица не читается. Лучшее!</li><li><span class="h">Nested Loop / Hash Join / Merge Join</span> — метод JOIN</li><li><span class="h">rows</span> — estimated vs actual. Большая разница → устаревшая статистика (ANALYZE)</li><li><span class="h">cost</span> — relative cost (не миллисекунды)</li></ul><div class="note">Большое расхождение estimated vs actual rows → ANALYZE table или VACUUM ANALYZE.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">6</span><span class="qt">Составной индекс — правило leftmost prefix.</span><span class="qa2">▶</span></div><div class="qans"><pre>CREATE INDEX idx ON orders(status, user_id, created_at);</pre><span class="h">Индекс ИСПОЛЬЗУЕТСЯ:</span><br>WHERE status = ?<br>WHERE status = ? AND user_id = ?<br>WHERE status = ? AND user_id = ? AND created_at &gt; ?<br>ORDER BY status<br>ORDER BY status, user_id<br><br><span class="h">Индекс НЕ используется (нет левого префикса):</span><br>WHERE user_id = ?<br>WHERE created_at &gt; ?<br>WHERE user_id = ? AND created_at &gt; ?<div class="warn">Порядок колонок в составном индексе критически важен! Ставь сначала наиболее селективные и наиболее часто используемые в WHERE.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">7</span><span class="qt">Оконные функции — ROW_NUMBER, RANK, LAG, LEAD.</span><span class="qa2">▶</span></div><div class="qans">Агрегатные вычисления без сворачивания строк — каждая строка сохраняется.<pre>SELECT
+  name, department, salary,
+  ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) AS row_num,
+  RANK()       OVER (PARTITION BY department ORDER BY salary DESC) AS rank,
+  DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS dense_rank,
+  -- (rank пропускает номера при дублях, dense_rank нет)
+  AVG(salary)  OVER (PARTITION BY department) AS dept_avg,
+  SUM(salary)  OVER (ORDER BY hire_date ROWS UNBOUNDED PRECEDING) AS running_total,
+  LAG(salary, 1)  OVER (PARTITION BY department ORDER BY hire_date) AS prev_salary,
+  LEAD(salary, 1) OVER (PARTITION BY department ORDER BY hire_date) AS next_salary,
+  FIRST_VALUE(name) OVER (PARTITION BY department ORDER BY salary DESC) AS top_earner
+FROM employees;</pre><div class="good">ROW_NUMBER + подзапрос — классический способ выбрать топ-N из каждой группы!</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">8</span><span class="qt">Нормализация — 1NF, 2NF, 3NF. Когда денормализовать?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">1NF</span> — атомарные значения, нет повторяющихся групп, есть первичный ключ.<br>Нарушение: поле "phones" = "111,222,333".<br><span class="h">2NF</span> — 1NF + нет частичной зависимости от составного ключа.<br>Нарушение: таблица (order_id, product_id, product_name) — product_name зависит только от product_id.<br><span class="h">3NF</span> — 2NF + нет транзитивных зависимостей.<br>Нарушение: (employee_id, dept_id, dept_name) — dept_name зависит от dept_id, а не от employee_id.<div class="note">Денормализация уместна для: OLAP/аналитика, read-heavy нагрузка, когда JOIN'ы стали узким местом. Кэшировать агрегаты (total_orders в user), копировать часто используемые поля.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn ny">9</span><span class="qt">Что такое Connection Pool? HikariCP настройки.</span><span class="qa2">▶</span></div><div class="qans">Connection Pool — набор переиспользуемых соединений с БД. Создание соединения = медленно (TCP + auth). Пул держит готовые соединения.<div class="good">HikariCP — самый быстрый пул для Java, дефолт в Spring Boot.</div><pre># application.properties
+spring.datasource.hikari.maximum-pool-size=10  # CPU cores × 2 + active disks (для IO)
+spring.datasource.hikari.minimum-idle=5
+spring.datasource.hikari.idle-timeout=600000   # 10 мин
+spring.datasource.hikari.connection-timeout=30000 # 30 сек
+spring.datasource.hikari.max-lifetime=1800000  # 30 мин (меньше timeout сервера!)</pre><div class="warn">Pool слишком большой = конкуренция в БД (lock contention). Слишком маленький = очередь запросов. Правило: pool = ядра × 2 + число дисков.</div></div></li>
+
+</ul></div></div>
+</section>
+
+<!-- KAFKA -->
+<section id="kafka">
+<div class="sh"><div class="si2" style="background:rgba(6,182,212,.15)">⚡</div><div><div class="st">Apache Kafka</div><div class="ss">Архитектура, гарантии доставки, Spring интеграция</div></div></div>
+
+<div class="ac cc" onclick="toggleCard(this)">
+<div class="ah"><div class="astr sc"></div><div class="al"><div class="atag tc">Архитектура</div><div class="ati">Компоненты, Partition, Consumer Group, ISR, KRaft</div><div class="am">как Kafka работает под капотом — топ тема на собеседовании</div></div><span class="acnt">9 вопросов</span><span class="ach">▼</span></div>
+<div class="ab"><ul class="ql">
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">1</span><span class="qt">Основные компоненты Kafka — Producer, Consumer, Broker, Topic, Partition, Offset.</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Producer</span> — публикует сообщения в топики. Выбирает партицию (по ключу или round-robin).<br><span class="h">Consumer</span> — читает сообщения. Отслеживает offset — свою позицию в партиции.<br><span class="h">Broker</span> — сервер Kafka, хранит данные. Кластер = набор брокеров.<br><span class="h">Topic</span> — логический канал (как таблица). Разделён на партиции.<br><span class="h">Partition</span> — упорядоченный неизменяемый лог сообщений на диске. Единица параллелизма и хранения.<br><span class="h">Offset</span> — уникальный монотонно возрастающий номер сообщения внутри партиции.<br><span class="h">Consumer Group</span> — группа consumers, совместно читающих топик. Каждая партиция — у одного consumer'а в группе.</div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">2</span><span class="qt">Что такое Partition? Зачем нужно несколько партиций?</span><span class="qa2">▶</span></div><div class="qans">Партиция — упорядоченный append-only лог. Сообщения внутри партиции строго упорядочены по offset.<br><br><span class="h">Зачем несколько:</span><ul><li>Параллелизм — несколько consumers одновременно читают разные партиции</li><li>Масштабирование — партиции распределяются по брокерам</li><li>Пропускная способность — параллельная запись/чтение</li></ul><div class="warn">Порядок гарантирован только внутри одной партиции! Между партициями — нет. Если нужен порядок для набора сообщений → используй один и тот же ключ → они попадут в одну партицию.</div><div class="note">Число партиций нельзя уменьшить. Увеличение числа партиций → rebalance всех consumer groups.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">3</span><span class="qt">Consumer Group и ребалансировка — как работает?</span><span class="qa2">▶</span></div><div class="qans">Consumer Group — логическая группа. Каждая партиция назначается ровно одному consumer'у в группе. Разные группы — независимые подписки (каждая читает все сообщения).<pre>Topic: orders (3 партиции)
+Group A: consumer1 читает P0, P1; consumer2 читает P2
+Group B: consumer3 читает P0; consumer4 читает P1; consumer5 читает P2</pre><span class="h">Rebalance триггеры:</span> consumer присоединился/упал/истёк heartbeat, изменилось число партиций.<div class="warn">Проблема: долгая обработка → превышение max.poll.interval.ms → consumer считается мёртвым → rebalance → сообщение перечитывается. Решение: увеличить max.poll.interval.ms или уменьшить max.poll.records.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">4</span><span class="qt">Что такое ISR (In-Sync Replicas)? Что происходит при падении лидера?</span><span class="qa2">▶</span></div><div class="qans">ISR — набор реплик полностью синхронизированных с лидером (не отстающих более чем на replica.lag.time.max.ms).<br><br><span class="h">Как работает репликация:</span><br>1. Producer отправляет лидеру<br>2. Реплики из ISR подтягивают данные<br>3. Лидер считает сообщение закоммиченным когда все ISR подтвердили (при acks=all)<br><br><span class="h">При падении лидера:</span> Kafka Controller выбирает нового лидера из ISR. Только реплики из ISR могут стать лидером (иначе потеря данных).<div class="warn">Если ISR = 1 (только лидер) + replication.factor=1 → любой сбой = потеря данных. В продакшне: replication.factor=3, min.insync.replicas=2.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">5</span><span class="qt">ZooKeeper vs KRaft — зачем переход?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">ZooKeeper (legacy)</span> — отдельный кластер для хранения метаданных Kafka, выбора контроллера. Сложность: нужно поддерживать два кластера, сложный ops.<br><br><span class="h">KRaft (Kafka 3.3+ production ready)</span> — Kafka сама управляет метаданными через Raft консенсус. Брокеры голосуют за контроллера.<br><br><span class="h">Преимущества KRaft:</span><ul><li>Проще: нет ZooKeeper = меньше компонентов</li><li>Быстрее старт: метаданные в памяти</li><li>Масштабирование до миллионов партиций (ZK ограничивал)</li><li>Единственная точка правды</li></ul><div class="good">В новых проектах используй KRaft. ZooKeeper mode официально deprecated.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">6</span><span class="qt">За счёт чего Kafka такая быстрая? Архитектурные решения.</span><span class="qa2">▶</span></div><div class="qans"><ul><li><span class="h">Sequential I/O</span> — append-only запись. HDD последовательная = 600 MB/s, случайная = 100 MB/s</li><li><span class="h">Page Cache</span> — OS кеширует файлы в RAM. Kafka не держит данные в JVM heap → нет GC overhead</li><li><span class="h">Zero Copy</span> — sendfile() syscall: данные из OS cache → NIC без копирования в user space</li><li><span class="h">Батчинг</span> — producer накапливает batch → один сетевой вызов, один disk write</li><li><span class="h">Сжатие</span> — snappy/lz4/gzip/zstd на уровне батча. lz4 — оптимально CPU/сжатие</li><li><span class="h">Partition параллелизм</span> — несколько writer/reader одновременно</li></ul></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">7</span><span class="qt">Что такое Log Compaction? Когда использовать?</span><span class="qa2">▶</span></div><div class="qans">Log Compaction — для каждого ключа сохраняется только последнее значение. Старые записи с тем же ключом удаляются.<pre>// Обычный топик (retention.ms=604800000):
+key=user1: msg1 → msg2 → msg3  // все 3 хранятся
+
+// Compacted топик (cleanup.policy=compact):
+key=user1: msg1 → msg2 → msg3  // только msg3!</pre><div class="good">Используй для: key-value state store (последнее состояние объекта), CDC (Change Data Capture), таблицы конфигурации, счётчики. Kafka как вечное хранилище актуального состояния.</div><div class="note">tombstone record — сообщение с value=null означает удаление ключа из compacted топика.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">8</span><span class="qt">Как Producer выбирает партицию для сообщения?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Алгоритм:</span><br>1. Если явно указана партиция → используется она<br>2. Если есть ключ → <code>partition = hash(key) % numPartitions</code>. Одинаковые ключи → одна партиция → порядок!<br>3. Если нет ключа → Sticky Partitioner (Java 2.4+): накапливаем batch в одну партицию, затем меняем. Лучше батчинг чем round-robin.<pre>// Явная партиция
+producer.send(new ProducerRecord&lt;&gt;("topic", 2, key, value));
+
+// По ключу — гарантия порядка для user
+producer.send(new ProducerRecord&lt;&gt;("orders", userId.toString(), orderJson));
+
+// Своя стратегия
+props.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, MyPartitioner.class);</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">9</span><span class="qt">Kafka vs RabbitMQ — когда что выбрать?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Kafka — выбирай для:</span><ul><li>Event streaming, event sourcing</li><li>Высокая пропускная способность (миллионы сообщений/сек)</li><li>Хранение истории сообщений, replay</li><li>Multiple consumers с разными позициями</li><li>Log aggregation, CDC, аналитика</li></ul><span class="h">RabbitMQ — выбирай для:</span><ul><li>Сложная маршрутизация (exchanges: direct, topic, fanout, headers)</li><li>Priority queues</li><li>Задачи (task queue) — exactly-once потребление</li><li>Меньше инфраструктурных требований</li><li>Когда нужен AMQP</li></ul><div class="note">Kafka — append-only лог. RabbitMQ — традиционный брокер с удалением сообщений после получения.</div></div></li>
+
+</ul></div></div>
+
+<div class="ac cc" onclick="toggleCard(this)">
+<div class="ah"><div class="astr sc"></div><div class="al"><div class="atag tc">Гарантии</div><div class="ati">Delivery semantics, acks, offset commit, DLT, Spring Kafka</div><div class="am">at-most-once, at-least-once, exactly-once, идемпотентность</div></div><span class="acnt">8 вопросов</span><span class="ach">▼</span></div>
+<div class="ab"><ul class="ql">
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">1</span><span class="qt">3 гарантии доставки — at-most-once, at-least-once, exactly-once.</span><span class="qa2">▶</span></div><div class="qans"><span class="h">At-most-once</span> — сообщение доставлено максимум раз. Возможна потеря при сбое. acks=0, retries=0. Для метрик, логов где потеря допустима.<br><br><span class="h">At-least-once</span> — доставлено минимум раз. Дубли возможны. acks=all, retries&gt;0, manual commit. Consumer должен быть идемпотентен.<br><br><span class="h">Exactly-once (EOS)</span> — ровно 1 раз. Без потерь и дублей. enable.idempotence=true + транзакции Kafka. Самое надёжное, есть overhead.<div class="note">На практике at-least-once + идемпотентный consumer — оптимальный выбор для большинства систем.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">2</span><span class="qt">acks=0 vs acks=1 vs acks=all — детально.</span><span class="qa2">▶</span></div><div class="qans"><code>acks=0</code> — не ждать подтверждений. Самый быстрый. Данные могут потеряться при любом сбое.<br><br><code>acks=1</code> — лидер подтверждает запись в свой лог. Данные потеряются если лидер упадёт до репликации. Компромисс.<br><br><code>acks=all (-1)</code> — все реплики из ISR подтверждают. Максимальная надёжность. Медленнее. Комбинируй с <code>min.insync.replicas=2</code>.<pre>props.put(ProducerConfig.ACKS_CONFIG, "all");
+props.put(ProducerConfig.RETRIES_CONFIG, Integer.MAX_VALUE);
+props.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true");</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">3</span><span class="qt">Идемпотентный Producer — как настроить и как работает?</span><span class="qa2">▶</span></div><div class="qans">Producer получает уникальный PID (Producer ID). Каждое сообщение получает sequence number. Брокер дедуплицирует по (PID, partition, seqNum).<pre>props.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true");
+// Автоматически:
+// acks = all
+// retries = Integer.MAX_VALUE
+// max.in.flight.requests.per.connection <= 5</pre><div class="good">Идемпотентность защищает от дублей при ретраях (сеть упала, ответ не дошёл). НО: только в пределах одной сессии продюсера. При перезапуске продюсера — новый PID, защиты нет → нужна транзакционность или идемпотентность consumer'а.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">4</span><span class="qt">Ручной vs автоматический commit offset — разница?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">auto.commit=true</span> — offset коммитится каждые auto.commit.interval.ms (5 сек). Если consumer упал после коммита но до обработки → потеря. Простой, не даёт контроля.<br><br><span class="h">Ручной commit</span> — полный контроль:<pre>while (true) {
+  ConsumerRecords&lt;K, V&gt; records = consumer.poll(Duration.ofMillis(100));
+  for (ConsumerRecord&lt;K, V&gt; record : records) {
+    process(record);
+  }
+  // commitSync() — надёжно, блокирует
+  consumer.commitSync();
+  // commitAsync() — быстро, при ошибке может пропустить
+}</pre><div class="warn">Коммить после обработки, не до! Иначе сообщение считается обработанным, а обработка не произошла.</div></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">5</span><span class="qt">Dead Letter Topic (DLT) — что это и как реализовать?</span><span class="qa2">▶</span></div><div class="qans">DLT — топик для сообщений, которые не удалось обработать после N попыток. Позволяет не блокировать основной поток.<pre>@RetryableTopic(
+  attempts = "4",                        // 1 основная + 3 retry
+  backoff = @Backoff(delay = 1000, multiplier = 2.0), // экспоненциальный backoff
+  dltTopicSuffix = "-dlt",
+  dltStrategy = DltStrategy.FAIL_ON_ERROR
+)
+@KafkaListener(topics = "orders", groupId = "order-service")
+public void handleOrder(Order order) {
+  orderProcessor.process(order); // если исключение → retry
+}
+
+@DltHandler
+public void handleDlt(Order order, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
+  log.error("DLT message from {}: {}", topic, order);
+  alertService.sendAlert(order); // уведомление команды
+}</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">6</span><span class="qt">Как интегрировать Kafka со Spring Boot? Полный пример.</span><span class="qa2">▶</span></div><div class="qans"><pre>// application.properties
+spring.kafka.bootstrap-servers=localhost:9092
+spring.kafka.consumer.group-id=my-service
+spring.kafka.consumer.key-deserializer=org.apache.kafka.common.serialization.StringDeserializer
+spring.kafka.consumer.value-deserializer=org.springframework.kafka.support.serializer.JsonDeserializer
+spring.kafka.consumer.properties.spring.json.trusted.packages=com.myapp.dto
+
+// Producer
+@Service
+public class OrderProducer {
+  @Autowired KafkaTemplate&lt;String, Order&gt; template;
+  public CompletableFuture&lt;SendResult&lt;String, Order&gt;&gt; send(Order order) {
+    return template.send("orders", order.getId().toString(), order);
+  }
+}
+
+// Consumer
+@Service
+public class OrderConsumer {
+  @KafkaListener(topics = "orders", groupId = "order-processor",
+    containerFactory = "kafkaListenerContainerFactory")
+  public void handle(
+    @Payload Order order,
+    @Header(KafkaHeaders.RECEIVED_PARTITION) int partition,
+    @Header(KafkaHeaders.OFFSET) long offset,
+    Acknowledgment ack // для ручного коммита
+  ) {
+    process(order);
+    ack.acknowledge(); // ручной коммит
+  }
+}</pre></div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">7</span><span class="qt">Kafka Streams и Kafka Connect — для чего нужны?</span><span class="qa2">▶</span></div><div class="qans"><span class="h">Kafka Streams</span> — библиотека для stream processing прямо на клиенте. Нет отдельного кластера.<pre>StreamsBuilder builder = new StreamsBuilder();
+builder.stream("orders")
+  .filter((k, v) -&gt; v.getAmount() &gt; 100)
+  .mapValues(v -&gt; new OrderSummary(v))
+  .to("large-orders");
+// Stateful: count, aggregate, join, windowing</pre><span class="h">Kafka Connect</span> — фреймворк для интеграции с внешними системами. Готовые коннекторы.<br>Source connector: БД → Kafka (Debezium CDC, JDBC Source).<br>Sink connector: Kafka → ElasticSearch, S3, PostgreSQL.</div></li>
+
+<li class="qi"><div class="qq" onclick="toggleQA(this,event)"><span class="qn nc">8</span><span class="qt">Как оптимизировать Producer для максимальной пропускной способности?</span><span class="qa2">▶</span></div><div class="qans"><pre>// Batching — ключ к производительности
+props.put(ProducerConfig.BATCH_SIZE_CONFIG, 65536);       // 64KB батч
+props.put(ProducerConfig.LINGER_MS_CONFIG, 10);           // ждать 10ms накопления
+props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432); // 32MB буфер
+
+// Сжатие — меньше сеть, меньше диск
+props.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "lz4"); // или snappy
+
+// Параллелизм
+props.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, 5);
+
+// Мониторинг:
+// record-send-rate, record-size-avg, batch-size-avg, compression-rate</pre><div class="note">linger.ms=0 — отправлять немедленно (низкая latency). linger.ms&gt;0 — накапливать (высокий throughput). Выбирай в зависимости от требований.</div></div></li>
+
+</ul></div></div>
+</section>
+
+<!-- CHECKLIST -->
+<section id="checklist">
+<div class="sh"><div class="si2" style="background:rgba(245,158,11,.15)">🎯</div><div><div class="st">Чек-лист подготовки</div><div class="ss">Что обязательно знать перед собеседованием</div></div></div>
+<div class="cg2">
+<div class="ci"><div class="cn" style="background:rgba(245,158,11,.15);color:var(--a)">1</div><div class="ct"><strong>Core Java</strong>Примитивы, autoboxing, final/static, исключения, Java 8+</div></div>
+<div class="ci"><div class="cn" style="background:rgba(245,158,11,.15);color:var(--a)">2</div><div class="ct"><strong>ООП</strong>4 принципа, overloading vs overriding, equals/hashCode контракт</div></div>
+<div class="ci"><div class="cn" style="background:rgba(6,182,212,.15);color:var(--a2)">3</div><div class="ct"><strong>HashMap</strong>Хеширование, коллизии, treeify, resize, load factor</div></div>
+<div class="ci"><div class="cn" style="background:rgba(6,182,212,.15);color:var(--a2)">4</div><div class="ct"><strong>Thread-safe коллекции</strong>ConcurrentHashMap, CopyOnWriteArrayList, fail-fast</div></div>
+<div class="ci"><div class="cn" style="background:rgba(239,68,68,.15);color:var(--a5)">5</div><div class="ct"><strong>Многопоточность</strong>synchronized, volatile, deadlock, race condition, CAS</div></div>
+<div class="ci"><div class="cn" style="background:rgba(239,68,68,.15);color:var(--a5)">6</div><div class="ct"><strong>ExecutorService</strong>Thread pools, Future, CompletableFuture, shutdown</div></div>
+<div class="ci"><div class="cn" style="background:rgba(168,85,247,.15);color:var(--a3)">7</div><div class="ct"><strong>JVM Memory</strong>Heap/Stack/Metaspace, GC поколения, G1/ZGC</div></div>
+<div class="ci"><div class="cn" style="background:rgba(168,85,247,.15);color:var(--a3)">8</div><div class="ct"><strong>JVM Tools</strong>JFR, async-profiler, heap dump, утечки памяти</div></div>
+<div class="ci"><div class="cn" style="background:rgba(34,197,94,.15);color:var(--a4)">9</div><div class="ct"><strong>Spring Core</strong>IoC/DI, Bean scopes, lifecycle, @Transactional, AOP</div></div>
+<div class="ci"><div class="cn" style="background:rgba(34,197,94,.15);color:var(--a4)">10</div><div class="ct"><strong>Hibernate</strong>Lazy/Eager, N+1, кеши L1/L2, Entity states</div></div>
+<div class="ci"><div class="cn" style="background:rgba(245,158,11,.15);color:var(--a)">11</div><div class="ct"><strong>SQL</strong>ACID, уровни изоляции, индексы, JOIN, оконные функции</div></div>
+<div class="ci"><div class="cn" style="background:rgba(6,182,212,.15);color:var(--a2)">12</div><div class="ct"><strong>Kafka</strong>Partition, offset, Consumer Group, ISR, acks, DLT</div></div>
+</div>
+</section>
+
+</div><!-- /wrap -->
+<footer><div class="wrap">Кликни на вопрос чтобы увидеть ответ · <span>☕ Удачи на собеседовании!</span></div></footer>
+
+<script>
+function toggleCard(card) {
+  card.classList.toggle('open');
+}
+function toggleQA(btn, event) {
+  event.stopPropagation();
+  const item = btn.closest('.qi');
+  item.classList.toggle('open');
+}
+</script>
+</body>
+</html>
